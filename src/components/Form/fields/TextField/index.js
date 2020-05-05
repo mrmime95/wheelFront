@@ -14,24 +14,12 @@ const StyledFormikField = styled(FormikField)`
   line-height: 1.5;
   box-shadow: none;
   height: 36px;
-  &:focus {
-    box-shadow: none;
-    color: ${COLORS.gray};
-    border-color: ${COLORS.lightBlue};
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
   ${({ disabled }) =>
-    disabled
-      ? `
+    disabled &&
+    `
       color: ${COLORS.softDark};
       border: none;
       padding: 0;
-    `
-      : `
-      &:hover {
-        border: solid 1px ${COLORS.lightGray};
-      }
     `}
 `
 

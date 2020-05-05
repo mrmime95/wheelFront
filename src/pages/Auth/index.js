@@ -13,7 +13,6 @@ const Wrapper = styled.div`
 `
 
 const Content = styled.div`
-  border: 1px solid black;
   width: 100%;
   max-width: 350px;
   padding: 25px;
@@ -21,7 +20,6 @@ const Content = styled.div`
 `
 
 const LogoContainer = styled.div`
-  border: 1px solid black;
   padding: 0 0 80px 0;
 `
 
@@ -30,7 +28,6 @@ const Logo = styled.img`
 `
 
 const FormContainer = styled.div`
-  border: 1px solid black;
   background-color: white;
   padding: 25px;
 `

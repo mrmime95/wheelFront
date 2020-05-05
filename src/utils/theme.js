@@ -41,16 +41,17 @@ export const COLORS = {
   softDark: '#212529',
 }
 
+export const FONT_FAMILY = {
+  roboto: 'Roboto, sans-serif',
+  lato: 'Lato, sans-serif',
+}
+
 export const TRANSITION = '0.15s ease-in-out'
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
   * {
     box-sizing: border-box;
-  }
-
-  html, body, #root, #site-main {
-    height: 100%;
   }
 
   html {
