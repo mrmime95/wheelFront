@@ -59,6 +59,12 @@ const SearchButton = styled(Button)`
   cursor: pointer;
 `
 
+const StyledDropdown = styled(Dropdown)`
+  margin: 0 0 0 40px;
+  align-items: center;
+  display: flex;
+`
+
 function Header({ logo, ...props }) {
   return (
     <StyledHeader {...props}>
@@ -76,9 +82,9 @@ function Header({ logo, ...props }) {
         </StyledForm>
       </HeaderPart>
       <HeaderPart>
-        <Dropdown text="My account">My account content</Dropdown>
-        <Dropdown text="Favourites">Favourites content</Dropdown>
-        <Dropdown text="Cart">Cart content</Dropdown>
+        <StyledDropdown text="My account">My account content</StyledDropdown>
+        <StyledDropdown text="Favourites">Favourites content</StyledDropdown>
+        <StyledDropdown text="Cart">Cart content</StyledDropdown>
       </HeaderPart>
     </StyledHeader>
   )

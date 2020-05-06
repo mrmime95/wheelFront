@@ -2,19 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
-import { COLORS, TRANSITION } from '../../utils/theme'
+import { COLORS, TRANSITION, FONT_FAMILY } from '../../utils/theme'
 
 const primaryStyles = css`
-  background-color: ${COLORS.activeBlue};
+  background-color: ${COLORS.blue};
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+  font-family: ${FONT_FAMILY.roboto};
   &:hover {
-    background-color: ${COLORS.lagoonBlue};
-  }
-`
-
-const secondaryStyles = css`
-  background-color: ${COLORS.gray};
-  &:hover {
-    background-color: ${COLORS.softDark};
+    box-shadow: 0px 0px 4px 0px rgba(43, 48, 61, 0.3) inset;
   }
 `
 
@@ -36,19 +31,15 @@ const sharedStyles = css`
   outline: none;
   padding: 10px;
   margin: 0;
-  background: transparent;
   cursor: pointer;
-  font-weight: bold;
   color: ${COLORS.white};
-  border-radius: 5px;
-  border: 1px solid;
-  transition: color ${TRANSITION}, background ${TRANSITION}, border-color ${TRANSITION};
+  transition: box-shadow ${TRANSITION};
+  border-radius: 2px;
+  border: none;
   text-transform: ${({ uppercase }) => uppercase && 'uppercase'};
 
   ${({ variant }) => {
     switch (variant) {
-      case 'secondary':
-        return secondaryStyles
       case 'text':
         return textStyles
       case 'primary':
@@ -78,7 +69,7 @@ function Button({ children, variant = 'primary', to, lowercase, ...props }) {
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'text']),
+  variant: PropTypes.oneOf(['primary', 'text']),
   to: PropTypes.string,
   lowercase: PropTypes.bool,
 }
