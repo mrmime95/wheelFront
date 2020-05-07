@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import logo from '../../images/HeaderLogo.png'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
+import Table from '../../components/Table'
+import Card from '../../components/Card'
 
 import { COLORS, FONT_FAMILY, TRANSITION } from '../../utils/theme'
 import backgroundImg from '../../images/Background.png'
@@ -13,6 +15,8 @@ import { ReactComponent as Agriculture } from '../../components/icons/agricultur
 import { ReactComponent as InnerTubes } from '../../components/icons/inner_tubes.svg'
 import { ReactComponent as SkidChains } from '../../components/icons/skid_chains.svg'
 import { ReactComponent as Rims } from '../../components/icons/rims.svg'
+import { ReactComponent as SummerIcon } from '../../components/icons/summer.svg'
+import { ReactComponent as WinterIcon } from '../../components/icons/winter.svg'
 
 const Wrapper = styled.div`
   max-width: 1500px;
@@ -25,10 +29,11 @@ const StyledHeader = styled(Header)``
 
 const BackgroundImage = styled.img`
   position: absolute;
-  max-height: 930px;
+  height: 930px;
   left: 0;
   top: 0;
   z-index: -1;
+  object-fit: cover;
 `
 
 const TitleContainter = styled.div`
@@ -37,13 +42,11 @@ const TitleContainter = styled.div`
     font-size: 6.8rem;
     font-weight: 700;
     font-family: ${FONT_FAMILY.roboto};
-    margin: 0;
   }
   & h5 {
     font-size: 2.3rem;
     font-weight: normal;
     font-family: ${FONT_FAMILY.roboto};
-    margin: 0;
   }
 `
 
@@ -54,13 +57,11 @@ const Description = styled.div`
 
 const Brand = styled.div`
   & h3 {
-    margin: 0;
     font-size: 4.8rem;
     font-weight: 700;
     font-family: ${FONT_FAMILY.roboto};
   }
   & h5 {
-    margin: 0;
     font-size: 2rem;
     font-weight: 400;
     font-family: ${FONT_FAMILY.roboto};
@@ -69,7 +70,6 @@ const Brand = styled.div`
 
 const Type = styled.div`
   & p {
-    margin: 0;
     font-size: 1.4rem;
     font-weight: 700;
     font-family: ${FONT_FAMILY.roboto};
@@ -77,9 +77,8 @@ const Type = styled.div`
 `
 
 const Price = styled.div`
-  padding: 0 0 55px;
+  padding: 0 0 45px;
   & h4 {
-    margin: 0;
     font-size: 4.8rem;
     font-weight: 700;
     font-family: ${FONT_FAMILY.roboto};
@@ -99,7 +98,6 @@ const Price = styled.div`
     }
   }
   & h3 {
-    margin: 0;
     font-size: 6rem;
     font-weight: 700;
     font-family: ${FONT_FAMILY.roboto};
@@ -123,18 +121,23 @@ const Categories = styled.div`
   display: flex;
   justify-content: space-between;
 `
+
 const CategoryButton = styled(Button)`
   padding: 10px 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 220px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: ${FONT_FAMILY.roboto};
+  width: 15%;
   height: 100px;
   transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
   ${({ active }) =>
     !active
-      ? `background-color:${COLORS.white};
+      ? `
+      background-color:${COLORS.white};
         color: ${COLORS.gray};
         & svg path {
         fill: ${COLORS.gray};
@@ -146,6 +149,44 @@ const CategoryButton = styled(Button)`
     padding: 10px 0 0;
   }
 `
+const LastSection = styled.section`
+  display: flex;
+  justify-content: space-between;
+  padding: 65px 0 0;
+`
+const BrandList = styled(Table)`
+  flex: 1;
+`
+
+const BrandButton = styled(Button)`
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: ${FONT_FAMILY.roboto};
+  width: 100%;
+  transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
+  &:first-child {
+    border-radius: 3px 3px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 3px 3px;
+  }
+  background-color: ${`${COLORS.gray}4D`};
+  color: ${COLORS.dark};
+  box-shadow: none;
+  ${({ active }) =>
+    active &&
+    `
+    background-color:${COLORS.blue};
+      color: ${COLORS.white};`}
+`
+
+const CardsList = styled.div`
+  flex: 5;
+`
 
 const categories = [
   { id: 0, name: 'vehicles', image: <Vehicles />, text: 'Cars / Off Road Vehicles ATV' },
@@ -156,8 +197,237 @@ const categories = [
   { id: 5, name: 'rims', image: <Rims />, text: 'Rims' },
 ]
 
+const brands = [
+  { id: 0, name: 'Michelin', text: 'Michelin' },
+  { id: 1, name: 'Michelin2', text: 'Michelin2' },
+]
+
+const productsByBrands = [
+  {
+    brand: 'Michelin',
+    products: [
+      {
+        id: 0,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 3,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 4,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 5,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 6,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 7,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 8,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 9,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 10,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+    ],
+  },
+  {
+    brand: 'Pirelli',
+    products: [
+      {
+        id: 0,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 2,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 1,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 5,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+      {
+        id: 6,
+        title: 'Pirelli',
+        subtitle: 'P Zero',
+        summer: true,
+        type: '205/55/R16',
+        number: 82,
+        letter: 'T',
+        fuel: 'g',
+        rain: 'e',
+        sound: 73,
+        oldPrice: '475.00 LEI',
+        newPrice: '475.00 LEI',
+        pieceNumber: 4,
+      },
+    ],
+  },
+]
+
 function Home() {
   const [categoryState, setCategoryState] = useState()
+  const [brandState, setBrandState] = useState([])
   return (
     <Wrapper>
       <BackgroundImage src={backgroundImg} alt="wheel background"></BackgroundImage>
@@ -173,7 +443,7 @@ function Home() {
             <h5>P Zero</h5>
           </Brand>
           <Type>
-            <img></img>
+            <SummerIcon />
             <p>Winter</p>
           </Type>
         </Description>
@@ -183,22 +453,69 @@ function Home() {
         </Price>
         <StyledButton>Find out more</StyledButton>
       </Promotion>
-      <Categories>
-        {categories.map((category) => (
-          <CategoryButton
-            key={`${category.id}${category.text}`}
-            active={category.name === categoryState}
-            onClick={() => handleCategoryChanged(category.name)}
-          >
-            {category.image}
-            <span>{category.text}</span>
-          </CategoryButton>
-        ))}
-      </Categories>
+      <section>
+        <Categories>
+          {categories.map((category) => (
+            <CategoryButton
+              key={`${category.id}${category.text}`}
+              active={category.name === categoryState}
+              onClick={() => handleCategoryChanged(category.name)}
+            >
+              {category.image}
+              <span>{category.text}</span>
+            </CategoryButton>
+          ))}
+        </Categories>
+      </section>
+      <LastSection>
+        <BrandList data={brands}>
+          {(brand) => (
+            <BrandButton
+              key={`${brand.id}${brand.text}`}
+              active={brandState.includes(brand.name)}
+              onClick={() => handleBrandChanged(brand.name)}
+            >
+              {brand.text}
+            </BrandButton>
+          )}
+        </BrandList>
+        <CardsList>
+          {productsByBrands.map((productsByBrand) => (
+            <React.Fragment key={productsByBrand.brand}>
+              <h4>{productsByBrand.brand}</h4>
+              {productsByBrand.products.map((product) => (
+                <Card
+                  key={product.id}
+                  title={product.title}
+                  subtitle={product.subtitle}
+                  summer={product.summer}
+                  type={product.type}
+                  number={product.number}
+                  letter={product.letter}
+                  fuel={product.fuel}
+                  rain={product.rain}
+                  sound={product.sound}
+                  oldPrice={product.oldPrice}
+                  newPrice={product.newPrice}
+                  pieceNumber={product.pieceNumber}
+                  onAddToCart={(value) => console.log(value)}
+                />
+              ))}
+            </React.Fragment>
+          ))}
+        </CardsList>
+      </LastSection>
     </Wrapper>
   )
+
   function handleCategoryChanged(newCategoryName) {
     setCategoryState(newCategoryName)
+  }
+
+  function handleBrandChanged(newBrand) {
+    setBrandState(
+      brandState.includes(newBrand) ? brandState.filter((brand) => newBrand !== brand) : [...brandState, newBrand]
+    )
   }
 }
 

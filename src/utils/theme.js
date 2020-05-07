@@ -5,6 +5,11 @@ export const COLORS = {
   white: '#ffffff',
   gray: '#939aa1',
   blue: '#418ef6',
+  orange: '#f69100',
+  green: '#018d08',
+  softDark: '#35393f',
+  dark: '#161d25',
+  hardDark: '#020202',
 }
 
 export const FONT_FAMILY = {
@@ -16,8 +21,10 @@ export const TRANSITION = '0.15s ease-in-out'
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
-  * {
+  *, h1 {
     box-sizing: border-box;
+    margin:0;
+    padding:0;
   }
 
   html {
@@ -26,6 +33,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-size: 1.4rem;
+    font-family: ${FONT_FAMILY.roboto};
   }
 
   img {
