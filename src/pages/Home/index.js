@@ -8,7 +8,7 @@ import Table from '../../components/Table'
 import Card from '../../components/Card'
 
 import { COLORS, FONT_FAMILY, TRANSITION } from '../../utils/theme'
-import backgroundImg from '../../images/Background.png'
+import backgroundImg from '../../images/Background.jpg'
 import { ReactComponent as Vehicles } from '../../components/icons/vehicles.svg'
 import { ReactComponent as Trucks } from '../../components/icons/trucks.svg'
 import { ReactComponent as Agriculture } from '../../components/icons/agriculture.svg'
@@ -41,12 +41,10 @@ const TitleContainter = styled.div`
   & h1 {
     font-size: 6.8rem;
     font-weight: 700;
-    font-family: ${FONT_FAMILY.roboto};
   }
   & h5 {
     font-size: 2.3rem;
     font-weight: normal;
-    font-family: ${FONT_FAMILY.roboto};
   }
 `
 
@@ -59,12 +57,10 @@ const Brand = styled.div`
   & h3 {
     font-size: 4.8rem;
     font-weight: 700;
-    font-family: ${FONT_FAMILY.roboto};
   }
   & h5 {
     font-size: 2rem;
     font-weight: 400;
-    font-family: ${FONT_FAMILY.roboto};
   }
 `
 
@@ -72,7 +68,6 @@ const Type = styled.div`
   & p {
     font-size: 1.4rem;
     font-weight: 700;
-    font-family: ${FONT_FAMILY.roboto};
   }
 `
 
@@ -81,7 +76,6 @@ const Price = styled.div`
   & h4 {
     font-size: 4.8rem;
     font-weight: 700;
-    font-family: ${FONT_FAMILY.roboto};
     font-style: italic;
     position: relative;
     display: inline-block;
@@ -100,7 +94,6 @@ const Price = styled.div`
   & h3 {
     font-size: 6rem;
     font-weight: 700;
-    font-family: ${FONT_FAMILY.roboto};
     color: #418ef6;
     line-height: 1;
   }
@@ -129,8 +122,7 @@ const CategoryButton = styled(Button)`
   justify-content: center;
   flex-direction: column;
   font-size: 1.4rem;
-  font-weight: 700;
-  font-family: ${FONT_FAMILY.roboto};
+
   width: 15%;
   height: 100px;
   transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
@@ -164,8 +156,7 @@ const BrandButton = styled(Button)`
   align-items: center;
   justify-content: flex-start;
   font-size: 1.4rem;
-  font-weight: 700;
-  font-family: ${FONT_FAMILY.roboto};
+
   width: 100%;
   transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
   &:first-child {

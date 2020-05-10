@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import { routes } from './routeConfig'
+
+import AuthContext from '../context/authContext'
 
 /**
  * A route that requires authentication. Redirects if not authenticated.
  * @param {{redirect: string} & RouteProps} props
  */
-function ProtectedRoute({ redirect = routes.authLogin, ...props }) {
-  //TODO: add useSelector with Redux
-  const isAuthenticated = true
+function ProtectedRoute({ redirect = routes.auth, ...props }) {
+  const { isAuthenticated } = useContext(AuthContext).state
 
   if (!isAuthenticated) {
     return <Redirect to={redirect} />

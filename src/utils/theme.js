@@ -4,12 +4,14 @@ import normalize from 'styled-normalize'
 export const COLORS = {
   white: '#ffffff',
   gray: '#939aa1',
+  disabledGray: '#cccccc',
   blue: '#418ef6',
   orange: '#f69100',
   green: '#018d08',
   softDark: '#35393f',
   dark: '#161d25',
   hardDark: '#020202',
+  black: '#000000',
 }
 
 export const FONT_FAMILY = {

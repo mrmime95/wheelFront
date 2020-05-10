@@ -7,5 +7,5 @@ export default {
 }
 
 export const DefaultView = () => (
-  <Form initialValues={{ email: '' }}>{() => <TextField type="email" label="Email" name="email" />}</Form>
+  <Form initialValues={{}}>{() => <TextField type="email" label="Email" name="email" />}</Form>
 )

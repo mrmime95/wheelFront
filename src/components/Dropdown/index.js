@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button from '../Button'
 import { FONT_FAMILY } from '../../utils/theme'
+
+import useClickOutside from '../../hooks/useClickOutside'
 
 const Wrapper = styled.div`
   position: relative;
@@ -31,14 +33,6 @@ const TextButton = styled(Button)`
   }
 `
 
-const Outside = styled.div`
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-`
-
 const DropdownContent = styled.div`
   position: absolute;
   top: 100%;
@@ -47,6 +41,8 @@ const DropdownContent = styled.div`
 //TODO: Add icon
 function Dropdown({ children, text, ...props }) {
   const [menuIsVisible, setMenuIsVisible] = useState(false)
+  const ref = useRef()
+  useClickOutside(ref, toggle)
 
   function toggle() {
     setMenuIsVisible(!menuIsVisible)
@@ -57,10 +53,9 @@ function Dropdown({ children, text, ...props }) {
         {text}
       </TextButton>
       {menuIsVisible && (
-        <>
-          <Outside onClick={() => setMenuIsVisible(false)} />
-          <DropdownContent onClick={(e) => e.stopPropagation()}>{children}</DropdownContent>
-        </>
+        <DropdownContent ref={ref} onClick={(e) => e.stopPropagation()}>
+          {children}
+        </DropdownContent>
       )}
     </Wrapper>
   )

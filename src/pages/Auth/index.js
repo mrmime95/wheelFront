@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { Redirect } from 'react-router-dom'
+
 import { COLORS } from '../../utils/theme'
 import Button from '../../components/Button'
 import TextField from '../../components/Form/fields/TextField'
 import Form from '../../components/Form'
+
+import AuthContext from '../../context/authContext'
 
 const Wrapper = styled.div`
   background-color: ${COLORS.lightSilver};
@@ -61,10 +65,17 @@ const LinkContainer = styled.div`
 `
 
 function Auth() {
-  const [existingUser, setExistingUser] = useState(0)
+  const { isAuthenticated, existingUser, email } = useContext(AuthContext).state
+  const { handleUserExistsChecker, handleUserLogIn, handleUserRegister } = useContext(AuthContext).functions
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />
+  }
 
   const onSubmit = [checkUser, logIn, register]
   const submitText = ['Continue', 'Log in', 'Register']
+
+  const authFlowIndex = !existingUser && !email ? 0 : !existingUser && email ? 2 : 1
 
   return (
     <Wrapper>
@@ -75,15 +86,20 @@ function Auth() {
         <FormContainer>
           <Title>Welcome!</Title>
           <Subtitle>Please add your emai!</Subtitle>
-          <Form initialValues={{ email: '', password: '', name: '' }} onSubmit={onSubmit[existingUser]}>
+          <Form initialValues={{ email: '', password: '', name: '' }} onSubmit={onSubmit[authFlowIndex]}>
             {() => (
               <>
-                <StyledTextField type="email" label="Email" placeholder="Email" name="email" />
-                {!!existingUser && (
-                  <StyledTextField type="password" label="Password" placeholder="Password" name="password" />
-                )}
-                {existingUser === 2 && <StyledTextField type="text" label="Name" placeholder="Name" name="name" />}
-                <SubmitButton type="submit">{submitText[existingUser]}</SubmitButton>
+                <StyledTextField
+                  type="email"
+                  required
+                  label="Email"
+                  placeholder="Email"
+                  name="email"
+                  disabled={!!email}
+                />
+                {email && <StyledTextField type="password" label="Password" placeholder="Password" name="password" />}
+                {!existingUser && email && <StyledTextField type="text" label="Name" placeholder="Name" name="name" />}
+                <SubmitButton type="submit">{submitText[authFlowIndex]}</SubmitButton>
               </>
             )}
           </Form>
@@ -98,15 +114,15 @@ function Auth() {
   )
 
   function checkUser(value) {
-    console.log(value)
-    setExistingUser(existingUser + 1)
+    handleUserExistsChecker(value.email)
   }
   function logIn(value) {
-    console.log(value)
-    setExistingUser(existingUser + 1)
+    handleUserLogIn(value.password)
   }
-  function register(value) {
-    console.log(value)
+
+  // eslint-disable-next-line no-unused-vars
+  function register({ email, ...rest }) {
+    handleUserRegister(rest)
   }
 }
 
