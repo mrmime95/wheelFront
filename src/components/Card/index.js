@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Button from '../Button'
 import Form from '../Form'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
-import { range } from '../../utils/number'
+import { range, twoDecimals } from '../../utils/number'
 
 import { ReactComponent as SummerIcon } from '../../components/icons/summer.svg'
 import { ReactComponent as WinterIcon } from '../../components/icons/winter.svg'
@@ -234,8 +234,8 @@ function Card({
         </AbleContainer>
       </FeatureSection>
       <div>
-        <Old>{oldPrice}</Old>
-        <New>{newPrice}</New>
+        <Old>{`${twoDecimals(oldPrice)} LEI`}</Old>
+        <New>{`${twoDecimals(newPrice)} LEI`}</New>
       </div>
       <BuySection>
         {pieceNumber ? <Available>Available</Available> : <Unavailable>Unavailable</Unavailable>}
@@ -269,8 +269,8 @@ Card.propTypes = {
   fuel: PropTypes.string.isRequired,
   rain: PropTypes.string.isRequired,
   sound: PropTypes.number.isRequired,
-  oldPrice: PropTypes.string.isRequired,
-  newPrice: PropTypes.string.isRequired,
+  oldPrice: PropTypes.number.isRequired,
+  newPrice: PropTypes.number.isRequired,
   pieceNumber: PropTypes.number.isRequired,
   onAddToCart: PropTypes.func.isRequired,
 }

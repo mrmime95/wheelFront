@@ -6,6 +6,7 @@ import Button from '../Button'
 import Form from '../Form'
 import TextField from '../Form/fields/TextField'
 import Dropdown from '../Dropdown'
+import CartList from '../Dropdown/CartList'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
 
 //TODO: clear border;
@@ -65,7 +66,12 @@ const StyledDropdown = styled(Dropdown)`
   display: flex;
 `
 
-function Header({ logo, ...props }) {
+const StyledCartList = styled(CartList)`
+  right: -20px;
+  top: 100%;
+`
+
+function Header({ logo, products = [], ...props }) {
   return (
     <StyledHeader {...props}>
       <HeaderPart>
@@ -84,7 +90,9 @@ function Header({ logo, ...props }) {
       <HeaderPart>
         <StyledDropdown text="My account">My account content</StyledDropdown>
         <StyledDropdown text="Favourites">Favourites content</StyledDropdown>
-        <StyledDropdown text="Cart">Cart content</StyledDropdown>
+        <StyledDropdown text="Cart">
+          <StyledCartList products={products} />
+        </StyledDropdown>
       </HeaderPart>
     </StyledHeader>
   )
@@ -96,6 +104,7 @@ function Header({ logo, ...props }) {
 
 Header.propTypes = {
   logo: PropTypes.string,
+  products: PropTypes.arrayOf(PropTypes.any),
 }
 
 export default Header

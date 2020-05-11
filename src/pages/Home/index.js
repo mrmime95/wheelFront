@@ -416,13 +416,19 @@ const productsByBrands = [
   },
 ]
 
+const products = [
+  { id: 0, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1, piece: 1 },
+  { id: 1, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1.44, piece: 1 },
+  { id: 2, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1.56, piece: 1 },
+]
+
 function Home() {
   const [categoryState, setCategoryState] = useState()
   const [brandState, setBrandState] = useState([])
   return (
     <Wrapper>
       <BackgroundImage src={backgroundImg} alt="wheel background"></BackgroundImage>
-      <StyledHeader logo={logo} />
+      <StyledHeader logo={logo} products={products} />
       <TitleContainter>
         <h1>Best Offers on Winter Tires</h1>
         <h5>Tires for cars, trucks, vans and agricultural vehicles</h5>

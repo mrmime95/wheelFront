@@ -16,8 +16,8 @@ export const DefaultView = () => (
     fuel="g"
     rain="e"
     sound={73}
-    oldPrice="475.00 LEI"
-    newPrice="475.00 LEI"
+    oldPrice={475.0}
+    newPrice={475.0}
     pieceNumber={4}
     onAddToCart={(value) => console.log(value)}
   />

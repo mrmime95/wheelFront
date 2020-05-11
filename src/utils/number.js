@@ -9,3 +9,7 @@ export function range(start, end) {
   if (start === end) return [start]
   return [start, ...range(start + 1, end)]
 }
+
+export function twoDecimals(num) {
+  return (Math.round(num * 100) / 100).toFixed(2)
+}
