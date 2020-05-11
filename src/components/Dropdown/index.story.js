@@ -15,7 +15,7 @@ const products = [
 export const DefaultView = () => <Dropdown text="Dropdown">Dropdown content</Dropdown>
 
 export const CartDropdown = () => (
-  <Dropdown text="Dropdown">
+  <Dropdown text="Dropdown" style={{ float: 'right' }}>
     <CartList products={products} />
   </Dropdown>
 )

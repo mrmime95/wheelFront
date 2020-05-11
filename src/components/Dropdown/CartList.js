@@ -5,9 +5,28 @@ import { twoDecimals } from '../../utils/number'
 import Button from '../Button'
 
 const Wrapper = styled.div`
+  z-index: 2;
   padding: 10px;
   width: 300px;
   text-align: center;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.13);
+  border-radius: 3px;
+  position: relative;
+  background-color: white;
+  :before {
+    position: absolute;
+    content: '';
+    top: 0;
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+    right: 19px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+  }
 `
 
 const Row = styled.tr`
@@ -30,6 +49,9 @@ const Row = styled.tr`
   td {
     height: 50px;
     font-weight: bold;
+    span {
+      font-weight: normal;
+    }
   }
 `
 
@@ -50,6 +72,7 @@ const StyledButton = styled(Button)`
   padding: 15px 50px;
   font-size: 1.4rem;
   font-weight: bold;
+  text-transform: uppercase;
 `
 
 function CartList({ products, ...props }) {
@@ -70,10 +93,13 @@ function CartList({ products, ...props }) {
             return (
               <Row key={product.id}>
                 <td>
-                  <p>
-                    <strong>{`${product.title} - `}</strong> {product.subtitle}
-                  </p>
-                  <p>{product.type}</p>
+                  <div>
+                    {`${product.title} - `}
+                    <span>{product.subtitle}</span>
+                  </div>
+                  <div>
+                    <span>{product.type}</span>
+                  </div>
                 </td>
                 <td>{product.piece}</td>
                 <td>{`${twoDecimals(product.price)} lei`}</td>
@@ -86,9 +112,7 @@ function CartList({ products, ...props }) {
           </Row>
         </tbody>
       </Table>
-      <StyledButton to="/cart" uppercase>
-        Check out
-      </StyledButton>
+      <StyledButton to="/cart">Check out</StyledButton>
     </Wrapper>
   )
 }

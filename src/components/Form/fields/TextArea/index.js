@@ -13,9 +13,10 @@ const StyledFormikField = styled(FormikField)`
   padding: 5px;
   width: 100%;
   color: ${COLORS.black};
+  resize: none;
 `
 
-function TextField({ placeholder, type = 'text', label, required, name, disabled = false, autoFocus, ...props }) {
+function TextArea({ placeholder, type = 'text', label, required, name, disabled = false, autoFocus, ...props }) {
   return (
     <FormField label={label} {...props}>
       <StyledFormikField
@@ -25,12 +26,14 @@ function TextField({ placeholder, type = 'text', label, required, name, disabled
         required={required}
         disabled={disabled}
         autoFocus={autoFocus}
+        component="textarea"
+        rows="5"
       />
     </FormField>
   )
 }
 
-TextField.propTypes = {
+TextArea.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -42,4 +45,4 @@ TextField.propTypes = {
   autoFocus: PropTypes.bool,
 }
 
-export default TextField
+export default TextArea

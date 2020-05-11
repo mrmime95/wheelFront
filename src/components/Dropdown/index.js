@@ -19,6 +19,7 @@ const TextButton = styled(Button)`
   color: #212121;
   position: relative;
   padding: 0px 27px 0px 0;
+  background-color: transparent;
   &:after {
     content: '';
     border: solid ${COLORS.blue};
@@ -35,11 +36,11 @@ const TextButton = styled(Button)`
 
 const DropdownContent = styled.div`
   position: absolute;
-  right: -20px;
+  right: 0;
   top: 100%;
   transform: translateY(15px);
-  background-color: ${COLORS.white};
   color: ${COLORS.black};
+  z-index: 1;
 `
 
 //TODO: Add icon

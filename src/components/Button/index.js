@@ -36,7 +36,6 @@ const sharedStyles = css`
   transition: box-shadow ${TRANSITION};
   border-radius: 2px;
   border: none;
-  text-transform: ${({ uppercase }) => uppercase && 'uppercase'};
 
   ${({ variant }) => {
     switch (variant) {
@@ -57,21 +56,21 @@ const ButtonWrapper = styled.button`
   ${sharedStyles}
 `
 
-function Button({ children, variant = 'primary', to, lowercase, ...props }) {
+function Button({ children, variant = 'primary', to, ...props }) {
   const Component = to ? LinkWrapper : ButtonWrapper
 
   return (
-    <Component to={to} variant={variant} lowercase={lowercase} {...props}>
+    <Component to={to} variant={variant} {...props}>
       {children}
     </Component>
   )
 }
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   variant: PropTypes.oneOf(['primary', 'text']),
   to: PropTypes.string,
-  lowercase: PropTypes.bool,
+  uppercase: PropTypes.bool,
 }
 
 export default Button

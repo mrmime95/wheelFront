@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button from '../Button'
 import Form from '../Form'
+import SelectField from '../Form/fields/SelectField'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
 import { range, twoDecimals } from '../../utils/number'
 
@@ -13,7 +14,7 @@ import { ReactComponent as FuelIcon } from '../../components/icons/fuel.svg'
 import { ReactComponent as RainIcon } from '../../components/icons/rain.svg'
 import { ReactComponent as SoundIcon } from '../../components/icons/voice.svg'
 import { ReactComponent as CartIcon } from '../../components/icons/cart.svg'
-import backgroundImg from '../../images/wheel.png'
+import backgroundImg from '../../images/wheel.jpg'
 
 const Wrapper = styled.div`
   position: relative;
@@ -93,11 +94,11 @@ const More = styled.div`
     letter-spacing: 0.02em;
   }
 `
-const AbleContainer = styled.div`
+export const AbleContainer = styled.div`
   display: flex;
   padding: 10px 0 0;
 `
-const Able = styled.div`
+export const Able = styled.div`
   border-radius: 2px;
   color: ${COLORS.white};
   background-color: ${({ color }) => COLORS[color]};
@@ -172,6 +173,9 @@ const StyledButton = styled(Button)`
     margin: 0 15px;
   }
 `
+const StyledSelectField = styled(SelectField)`
+  margin-bottom: 0;
+`
 
 function Card({
   title,
@@ -242,13 +246,10 @@ function Card({
         <Form onSubmit={onAddToCart} initialValues={{ piece: 0 }}>
           {() => (
             <StyledButton type="submit">
-              <select name="piece">
-                {range(0, pieceNumber).map((piece) => (
-                  <option key={piece} value={piece}>
-                    {piece}
-                  </option>
-                ))}
-              </select>
+              <StyledSelectField
+                name="piece"
+                options={range(0, pieceNumber).map((number) => ({ value: number, label: number }))}
+              />
               <CartIcon />
               <span>Ad to cart</span>
             </StyledButton>

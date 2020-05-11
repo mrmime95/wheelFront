@@ -19,10 +19,10 @@ function Form({
       validateOnChange={!validateBeforeSubmit}
       validateOnBlur={!validateBeforeSubmit}
     >
-      {({ handleSubmit, handleChange, handleBlur, values, errors, dirty, setFieldValue }) => {
+      {({ handleSubmit, submitForm, handleChange, handleBlur, values, errors, dirty, setFieldValue }) => {
         return (
           <form onSubmit={handleSubmit} noValidate={!!validateBeforeSubmit} {...props}>
-            {children && children({ handleChange, handleBlur, values, errors, dirty, setFieldValue })}
+            {children && children({ handleChange, handleBlur, submitForm, values, errors, dirty, setFieldValue })}
           </form>
         )
       }}
