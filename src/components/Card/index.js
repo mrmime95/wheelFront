@@ -178,6 +178,7 @@ const StyledSelectField = styled(SelectField)`
 `
 
 function Card({
+  id = '1',
   title,
   subtitle,
   summer = false,
@@ -247,6 +248,7 @@ function Card({
           {() => (
             <StyledButton type="submit">
               <StyledSelectField
+                id={`piece${id}`}
                 name="piece"
                 options={range(0, pieceNumber).map((number) => ({ value: number, label: number }))}
               />
@@ -274,6 +276,7 @@ Card.propTypes = {
   newPrice: PropTypes.number.isRequired,
   pieceNumber: PropTypes.number.isRequired,
   onAddToCart: PropTypes.func.isRequired,
+  id: PropTypes.string || PropTypes.number,
 }
 
 export default Card

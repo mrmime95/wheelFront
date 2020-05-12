@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import logo from '../../images/HeaderLogo.png'
 import Header from '../../components/Header'
 import ResponsiveTable from '../../components/ResponsiveTable'
+import CheckoutForm from '../../components/CheckoutForm'
+import TextArea from '../../components/Form/fields/TextArea'
+import TextField from '../../components/Form/fields/TextField'
+import RadioButtonsField from '../../components/Form/fields/RadioButtonsField'
 
 import { COLORS } from '../../utils/theme'
 import backgroundImg from '../../images/BackgroundCos.jpg'
@@ -230,24 +234,102 @@ const StepperForms = styled.div`
   justify-content: space-around;
 `
 
-const Step = styled.div`
-  border: 1px solid ${COLORS.blue};
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  background-color: ${COLORS.white};
-  z-index: 1;
-  font-size: 2.4rem;
-  line-height: 1;
-  font-weight: normal;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${({ active }) => (active ? COLORS.black : COLORS.disabledGray)};
+const StyledRadioButtonsField = styled(RadioButtonsField)`
+  label span {
+    margin: 0 10px;
+    font-size: 1.1rem;
+  }
 `
 
+const steps = [
+  {
+    title: 'Billing Address',
+    children: (
+      <>
+        <StyledRadioButtonsField
+          radioButtons={[
+            { label: 'Individual Person', value: 'indiv' },
+            { label: 'Legal', value: 'legal' },
+          ]}
+          name="personType"
+        />
+        <TextField label="Name" name="name" />
+        <TextField label="First name" name="firstName" />
+        <TextField type="email" label="E-mail" name="email" />
+        <TextArea label="Address" name="address" />
+        <TextField label="IBAN" name="iban" />
+        <TextField label="Bank" name="bank" />
+        <TextField label="Registration Number" name="registrationNumber" />
+      </>
+    ),
+    onSubmit: (value) => {
+      console.log(value)
+    },
+    initialValues: {
+      personType: '',
+      name: '',
+      firstName: '',
+      email: '',
+      address: '',
+      iban: '',
+      bank: '',
+      registrationNumber: '',
+    },
+  },
+  {
+    title: 'Method of delivery',
+    children: (
+      <>
+        <RadioButtonsField
+          label="Method of delivery:"
+          column
+          radioButtons={[
+            { label: 'Pickup from a deposit', value: 'pickup' },
+            { label: 'Express delivery', value: 'express' },
+          ]}
+          name="deliveryMethod"
+        />
+      </>
+    ),
+    onSubmit: (value) => {
+      console.log(value)
+    },
+    initialValues: {
+      deliveryMethod: 'express',
+    },
+  },
+  {
+    title: 'Finalize ordery',
+    children: (
+      <>
+        <RadioButtonsField
+          label="Payment method:"
+          column
+          radioButtons={[
+            { label: 'Cash on delivery/pickup', value: 'cash' },
+            { label: 'Credit card', value: 'card' },
+            { label: 'Payment order', value: 'payment' },
+          ]}
+          name="paymentMethod"
+        />
+        <RadioButtonsField
+          column
+          radioButtons={[{ label: 'I agree with the Terms and conditions', value: 'agree' }]}
+          name="termsAgree"
+        />
+      </>
+    ),
+    onSubmit: (value) => {
+      console.log(value)
+    },
+    initialValues: {
+      paymentMethod: 'express',
+      termsAgree: '',
+    },
+  },
+]
+
 function Cart() {
-  const steps = [1, 2, 3]
   const [activeStep] = useState(0)
   return (
     <Page>
@@ -269,9 +351,16 @@ function Cart() {
             <StepperContainer>
               <StepperForms>
                 {steps.map((step, index) => (
-                  <Step key={index} active={activeStep >= index}>
-                    {index + 1}
-                  </Step>
+                  <CheckoutForm
+                    key={index}
+                    isActive={index === activeStep}
+                    index={index + 1}
+                    title={step.title}
+                    initialValues={step.initialValues}
+                    onSubmit={step.onSubmit}
+                  >
+                    {step.children}
+                  </CheckoutForm>
                 ))}
               </StepperForms>
             </StepperContainer>

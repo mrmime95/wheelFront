@@ -29,7 +29,14 @@ const auth = {
   user: (params) => axios.get('/auth/user', { params }),
 }
 
+const product = {
+  get: (params) => axios.post('/product', params),
+  getById: (id) => axios.post(`/product/${id}`),
+  getAPromotion: () => axios.get('/product/promo'),
+}
+
 export default {
   user,
   auth,
+  product,
 }

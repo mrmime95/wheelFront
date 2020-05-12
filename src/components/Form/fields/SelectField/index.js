@@ -19,7 +19,7 @@ const StyledFormikField = styled(FormikField)`
   position: relative;
 `
 const StyledFormField = styled(FormField)`
-  &:after {
+  label:after {
     content: '';
     border: solid #000000;
     border-width: 0 2px 2px 0;
@@ -65,6 +65,7 @@ SelectField.propTypes = {
   debounceDelay: PropTypes.number,
   autoFocus: PropTypes.bool,
   options: PropTypes.any.isRequired,
+  id: PropTypes.string,
 }
 
 export default SelectField
