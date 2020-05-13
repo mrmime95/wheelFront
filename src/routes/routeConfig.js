@@ -4,6 +4,7 @@ import loadable from '@loadable/component'
 const LayoutPage = loadable(() => import('../pages/LayoutPage'))
 const Home = loadable(() => import('../pages/Home'))
 const Cart = loadable(() => import('../pages/Cart'))
+const ThankYou = loadable(() => import('../pages/ThankYou'))
 
 // Auth pages
 const Auth = loadable(() => import('../pages/Auth'))
@@ -15,6 +16,7 @@ export const routes = {
   landingPage: '/',
   home: '/',
   cart: '/cart',
+  ty: '/thank-you',
   auth: '/auth',
   notFound: '*',
 }
@@ -50,6 +52,13 @@ export const loggedInRoutes = [
     name: 'Cart',
     path: routes.cart,
     component: Cart,
+    exact: true,
+    protected: true,
+  },
+  {
+    name: 'ThankYou',
+    path: routes.ty,
+    component: ThankYou,
     exact: true,
     protected: true,
   },

@@ -12,7 +12,6 @@ import CartContext from '../../context/cartContext'
 import { COLORS } from '../../utils/theme'
 import backgroundImg from '../../images/BackgroundCos.jpg'
 import * as Yup from 'yup'
-import { Redirect } from 'react-router-dom'
 
 const header = [
   'Product',

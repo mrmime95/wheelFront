@@ -24,7 +24,6 @@ const StyledHeader = styled.header`
   padding: 5px 20px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid rgba(0, 0, 0, 0.2);
 `
 
 const HeaderPart = styled.div`
