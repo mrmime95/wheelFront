@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import API from '../../utils/API'
 
 import logo from '../../images/HeaderLogo.png'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Table from '../../components/Table'
 import Card from '../../components/Card'
+import Loading from '../../components/Loading'
+//import Slider from 'react-slick'
 
-import { COLORS, FONT_FAMILY, TRANSITION } from '../../utils/theme'
+import { COLORS, TRANSITION } from '../../utils/theme'
 import backgroundImg from '../../images/Background.jpg'
 import { ReactComponent as Vehicles } from '../../components/icons/vehicles.svg'
 import { ReactComponent as Trucks } from '../../components/icons/trucks.svg'
@@ -17,6 +20,8 @@ import { ReactComponent as SkidChains } from '../../components/icons/skid_chains
 import { ReactComponent as Rims } from '../../components/icons/rims.svg'
 import { ReactComponent as SummerIcon } from '../../components/icons/summer.svg'
 import { ReactComponent as WinterIcon } from '../../components/icons/winter.svg'
+/* import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css' */
 
 const Wrapper = styled.div`
   max-width: 1500px;
@@ -54,6 +59,7 @@ const Description = styled.div`
 `
 
 const Brand = styled.div`
+  padding: 0 110px 0 0;
   & h3 {
     font-size: 4.8rem;
     font-weight: 700;
@@ -68,6 +74,14 @@ const Type = styled.div`
   & p {
     font-size: 1.4rem;
     font-weight: 700;
+    text-transform: uppercase;
+  }
+  & svg {
+    width: 45px;
+    height: 45px;
+    path {
+      fill: ${COLORS.white};
+    }
   }
 `
 
@@ -156,7 +170,7 @@ const BrandButton = styled(Button)`
   align-items: center;
   justify-content: flex-start;
   font-size: 1.4rem;
-
+  font-weight: 700;
   width: 100%;
   transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
   &:first-child {
@@ -177,243 +191,42 @@ const BrandButton = styled(Button)`
 
 const CardsList = styled.div`
   flex: 5;
+  padding: 20px 0 20px 30px;
+`
+
+const BrandTitle = styled.h4`
+  color: ${COLORS.dark};
+  font-size: 3rem;
+  font-weight: 700;
+  padding: 0 0 10px;
+  border-bottom: 1px solid ${COLORS.blue};
+`
+
+const CardContainer = styled.div`
+  padding: 45px 0 45px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 const categories = [
-  { id: 0, name: 'vehicles', image: <Vehicles />, text: 'Cars / Off Road Vehicles ATV' },
+  { id: 0, name: 'cars', image: <Vehicles />, text: 'Cars / Off Road Vehicles ATV' },
   { id: 1, name: 'trucks', image: <Trucks />, text: 'Trucks' },
   { id: 2, name: 'agriculture', image: <Agriculture />, text: 'Agriculture' },
-  { id: 3, name: 'innerTubes', image: <InnerTubes />, text: 'Inner tubes' },
-  { id: 4, name: 'skidChains', image: <SkidChains />, text: 'Skid chains' },
+  { id: 3, name: 'inner', image: <InnerTubes />, text: 'Inner tubes' },
+  { id: 4, name: 'skid', image: <SkidChains />, text: 'Skid chains' },
   { id: 5, name: 'rims', image: <Rims />, text: 'Rims' },
 ]
 
 const brands = [
-  { id: 0, name: 'Michelin', text: 'Michelin' },
-  { id: 1, name: 'Michelin2', text: 'Michelin2' },
-]
-
-const productsByBrands = [
-  {
-    brand: 'Michelin',
-    products: [
-      {
-        id: 0,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 3,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 4,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 5,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 6,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 7,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 8,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 9,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 10,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-    ],
-  },
-  {
-    brand: 'Pirelli',
-    products: [
-      {
-        id: 0,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 2,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 1,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 5,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-      {
-        id: 6,
-        title: 'Pirelli',
-        subtitle: 'P Zero',
-        summer: true,
-        type: '205/55/R16',
-        number: 82,
-        letter: 'T',
-        fuel: 'g',
-        rain: 'e',
-        sound: 73,
-        oldPrice: '475.00 LEI',
-        newPrice: '475.00 LEI',
-        pieceNumber: 4,
-      },
-    ],
-  },
+  { id: 1, name: 'Pirelli', text: 'Pirelli' },
+  { id: 2, name: 'Michelin', text: 'Michelin' },
+  { id: 3, name: 'Hankook', text: 'Hankook' },
+  { id: 4, name: 'Good Year', text: 'Good Year' },
+  { id: 5, name: 'Maxxis', text: 'Maxxis' },
+  { id: 6, name: 'Hartland', text: 'Hartland' },
+  { id: 7, name: 'Dunlop', text: 'Dunlop' },
+  { id: 8, name: 'Bridgestone', text: 'Bridgestone' },
 ]
 
 const products = [
@@ -422,9 +235,53 @@ const products = [
   { id: 2, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1.56, piece: 1 },
 ]
 
+/* const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+} */
+
 function Home() {
   const [categoryState, setCategoryState] = useState()
   const [brandState, setBrandState] = useState([])
+  const [productsByBrands, setProductByBrands] = useState([])
+  const [promo, setPromo] = useState()
+  const [loadingProducts, setLoadingProducts] = useState(false)
+
+  useEffect(() => {
+    getFilteredProductList()
+    getPromoProduct()
+  }, [])
+
   return (
     <Wrapper>
       <BackgroundImage src={backgroundImg} alt="wheel background"></BackgroundImage>
@@ -436,20 +293,32 @@ function Home() {
       <Promotion>
         <Description>
           <Brand>
-            <h3>Pirelli</h3>
-            <h5>P Zero</h5>
+            <h3>{promo && promo.brand}</h3>
+            <h5>{promo && promo.category}</h5>
           </Brand>
-          <Type>
-            <SummerIcon />
-            <p>Winter</p>
-          </Type>
+          {promo && (
+            <Type>
+              {!!promo.summer ? (
+                <>
+                  <SummerIcon />
+                  <p>summer</p>
+                </>
+              ) : (
+                <>
+                  <WinterIcon />
+                  <p>winter</p>
+                </>
+              )}
+            </Type>
+          )}
         </Description>
         <Price>
-          <h4>475.00 LEI</h4>
-          <h3>475.00 LEI</h3>
+          <h4>{promo && `${promo.oldPrice} LEI`}</h4>
+          <h3>{promo && `${promo.newPrice}LEI`}</h3>
         </Price>
         <StyledButton>Find out more</StyledButton>
       </Promotion>
+
       <section>
         <Categories>
           {categories.map((category) => (
@@ -477,42 +346,75 @@ function Home() {
           )}
         </BrandList>
         <CardsList>
-          {productsByBrands.map((productsByBrand) => (
-            <React.Fragment key={productsByBrand.brand}>
-              <h4>{productsByBrand.brand}</h4>
-              {productsByBrand.products.map((product) => (
-                <Card
-                  key={product.id}
-                  title={product.title}
-                  subtitle={product.subtitle}
-                  summer={product.summer}
-                  type={product.type}
-                  number={product.number}
-                  letter={product.letter}
-                  fuel={product.fuel}
-                  rain={product.rain}
-                  sound={product.sound}
-                  oldPrice={product.oldPrice}
-                  newPrice={product.newPrice}
-                  pieceNumber={product.pieceNumber}
-                  onAddToCart={(value) => console.log(value)}
-                />
-              ))}
-            </React.Fragment>
-          ))}
+          {loadingProducts ? (
+            <Loading></Loading>
+          ) : (
+            Object.keys(productsByBrands).map((key) => (
+              <React.Fragment key={key}>
+                <BrandTitle>{key}</BrandTitle>
+                <CardContainer>
+                  {productsByBrands[key].map((product) => (
+                    <Card
+                      key={product.id}
+                      title={product.brand}
+                      subtitle={product.category}
+                      summer={!!product.summer}
+                      type={product.type}
+                      number={product.number}
+                      letter={product.letter}
+                      fuel={product.fuel}
+                      rain={product.rain}
+                      sound={product.sound}
+                      oldPrice={product.oldPrice}
+                      newPrice={product.newPrice}
+                      pieceNumber={product.pieceNumber}
+                      onAddToCart={(value) => console.log(value)}
+                    />
+                  ))}
+                </CardContainer>
+              </React.Fragment>
+            ))
+          )}
         </CardsList>
       </LastSection>
     </Wrapper>
   )
 
   function handleCategoryChanged(newCategoryName) {
-    setCategoryState(newCategoryName)
+    const categoryName = categoryState === newCategoryName ? undefined : newCategoryName
+    setCategoryState(categoryName)
+    getFilteredProductList({ useFor: categoryName, brands: brandState })
   }
 
   function handleBrandChanged(newBrand) {
-    setBrandState(
-      brandState.includes(newBrand) ? brandState.filter((brand) => newBrand !== brand) : [...brandState, newBrand]
-    )
+    const newBrandsList = brandState.includes(newBrand)
+      ? brandState.filter((brand) => newBrand !== brand)
+      : [...brandState, newBrand]
+    setBrandState(newBrandsList)
+
+    getFilteredProductList({ brands: newBrandsList, useFor: categoryState })
+  }
+
+  async function getFilteredProductList({ brands, useFor } = {}) {
+    setLoadingProducts(true)
+    try {
+      const resp = await API.product.get({ brands, useFor })
+      console.log(resp)
+      setProductByBrands(resp)
+    } catch (e) {
+      alert(e.message)
+    }
+    setLoadingProducts(false)
+  }
+
+  async function getPromoProduct() {
+    try {
+      const resp = await API.product.getAPromotion()
+      console.log(resp)
+      setPromo(resp)
+    } catch (e) {
+      alert(e.message)
+    }
   }
 }
 

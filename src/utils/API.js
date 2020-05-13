@@ -15,7 +15,7 @@ axios.interceptors.response.use(
 
 export const setAuthToken = (token) =>
   token
-    ? (axios.defaults.headers.common['Authorization'] = `${token.type} ${token.access_token}`)
+    ? (axios.defaults.headers.common['Authorization'] = `${token.token_type} ${token.access_token}`)
     : delete axios.defaults.headers.common['Authorization']
 
 const user = {
@@ -30,8 +30,8 @@ const auth = {
 }
 
 const product = {
-  get: (params) => axios.post('/product', params),
-  getById: (id) => axios.post(`/product/${id}`),
+  get: (params) => axios.get('/product', { params }),
+  getById: (id) => axios.get(`/product/${id}`),
   getAPromotion: () => axios.get('/product/promo'),
 }
 

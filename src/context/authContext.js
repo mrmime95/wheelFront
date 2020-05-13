@@ -11,12 +11,16 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     ;(async function fetchData() {
-      const token = localStorage.getItem('token')
+      const token = JSON.parse(localStorage.getItem('token'))
       if (token) {
         setAuthToken(token)
         try {
           const resp = await API.auth.user()
-          setState({ ...state, email: resp.email, existingUser: true, isAuthenticated: true })
+          if (resp.email) {
+            setState((state) => ({ ...state, email: resp.email, existingUser: true, isAuthenticated: true }))
+          } else {
+            clearData()
+          }
         } catch (e) {
           clearData()
         }
@@ -58,7 +62,7 @@ export function AuthProvider({ children }) {
   function setUserAuthenticated(token) {
     setState({ ...state, token: token, isAuthenticated: true })
     setAuthToken(token)
-    localStorage.setItem('token', token)
+    localStorage.setItem('token', JSON.stringify(token))
   }
 
   function clearData() {

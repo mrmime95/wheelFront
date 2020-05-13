@@ -89,16 +89,9 @@ function Auth() {
           <Form initialValues={{ email: '', password: '', name: '' }} onSubmit={onSubmit[authFlowIndex]}>
             {() => (
               <>
-                <StyledTextField
-                  type="email"
-                  required
-                  label="Email"
-                  placeholder="Email"
-                  name="email"
-                  disabled={!!email}
-                />
-                {email && <StyledTextField type="password" label="Password" placeholder="Password" name="password" />}
-                {!existingUser && email && <StyledTextField type="text" label="Name" placeholder="Name" name="name" />}
+                <StyledTextField type="email" required placeholder="Email" name="email" disabled={!!email} />
+                {email && <StyledTextField type="password" placeholder="Password" name="password" />}
+                {!existingUser && email && <StyledTextField type="text" placeholder="Name" name="name" />}
                 <SubmitButton type="submit">{submitText[authFlowIndex]}</SubmitButton>
               </>
             )}

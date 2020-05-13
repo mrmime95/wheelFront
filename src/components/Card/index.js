@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   color: ${COLORS.dark};
+  margin: 0 0 20px;
 `
 
 const BackgroundImage = styled.img`
@@ -239,7 +240,7 @@ function Card({
         </AbleContainer>
       </FeatureSection>
       <div>
-        <Old>{`${twoDecimals(oldPrice)} LEI`}</Old>
+        <Old>{oldPrice && `${twoDecimals(oldPrice)} LEI`}</Old>
         <New>{`${twoDecimals(newPrice)} LEI`}</New>
       </div>
       <BuySection>
@@ -272,7 +273,7 @@ Card.propTypes = {
   fuel: PropTypes.string.isRequired,
   rain: PropTypes.string.isRequired,
   sound: PropTypes.number.isRequired,
-  oldPrice: PropTypes.number.isRequired,
+  oldPrice: PropTypes.number,
   newPrice: PropTypes.number.isRequired,
   pieceNumber: PropTypes.number.isRequired,
   onAddToCart: PropTypes.func.isRequired,
