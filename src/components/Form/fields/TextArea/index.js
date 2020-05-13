@@ -12,13 +12,13 @@ const StyledFormikField = styled(FormikField)`
   border: 1px solid ${COLORS.disabledGray};
   padding: 5px;
   width: 100%;
-  color: ${COLORS.black};
+  color: inherit;
   resize: none;
 `
 
 function TextArea({ placeholder, type = 'text', label, required, name, disabled = false, autoFocus, ...props }) {
   return (
-    <FormField label={label} {...props}>
+    <FormField label={label} disabled={disabled} {...props}>
       <StyledFormikField
         placeholder={placeholder}
         type={type}

@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Button from '../Button'
 import Form from '../Form'
-import TextField from '../Form/fields/TextField'
+import { SearchField } from '../Form/fields/TextField'
 import Dropdown from '../Dropdown'
 import CartList from '../Dropdown/CartList'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
+import CartContext from '../../context/cartContext'
 
 //TODO: clear border;
 const StyledHeader = styled.header`
@@ -37,7 +38,7 @@ const StyledForm = styled(Form)`
   margin: 2px 0 2px 50px;
 `
 
-const StyledTextField = styled(TextField)`
+const StyledTextField = styled(SearchField)`
   border-radius: 3px 0 0 3px;
   box-shadow: 0px 0px 4px 0px rgba(43, 48, 61, 0.3) inset;
   height: 100%;
@@ -52,7 +53,7 @@ const SearchButton = styled(Button)`
   border-radius: 0 3px 3px 0;
   height: 100%;
   border: 0;
-  padding: 10px 20px 10px 35px;
+  padding: 10px 35px 10px 35px;
   text-transform: uppercase;
   font-size: 1.2rem;
   font-family: ${FONT_FAMILY.roboto};
@@ -71,7 +72,9 @@ const StyledCartList = styled(CartList)`
   top: 100%;
 `
 
-function Header({ logo, products = [], ...props }) {
+function Header({ logo, ...props }) {
+  const { cart } = useContext(CartContext)
+
   return (
     <StyledHeader {...props}>
       <HeaderPart>
@@ -91,7 +94,16 @@ function Header({ logo, products = [], ...props }) {
         <StyledDropdown text="My account">My account content</StyledDropdown>
         <StyledDropdown text="Favourites">Favourites content</StyledDropdown>
         <StyledDropdown text="Cart">
-          <StyledCartList products={products} />
+          <StyledCartList
+            products={cart.map((product) => ({
+              id: product.id,
+              title: product.brand,
+              subtitle: product.category,
+              type: product.type,
+              price: product.newPrice,
+              piece: product.amount,
+            }))}
+          />
         </StyledDropdown>
       </HeaderPart>
     </StyledHeader>
@@ -104,7 +116,6 @@ function Header({ logo, products = [], ...props }) {
 
 Header.propTypes = {
   logo: PropTypes.string,
-  products: PropTypes.arrayOf(PropTypes.any),
 }
 
 export default Header

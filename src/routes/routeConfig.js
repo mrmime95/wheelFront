@@ -1,6 +1,7 @@
 import loadable from '@loadable/component'
 
 // Main pages
+const LayoutPage = loadable(() => import('../pages/LayoutPage'))
 const Home = loadable(() => import('../pages/Home'))
 const Cart = loadable(() => import('../pages/Cart'))
 
@@ -11,6 +12,7 @@ const Auth = loadable(() => import('../pages/Auth'))
 const NotFound = loadable(() => import('../pages/NotFound'))
 
 export const routes = {
+  landingPage: '/',
   home: '/',
   cart: '/cart',
   auth: '/auth',
@@ -25,6 +27,19 @@ const routeConfig = [
     component: Auth,
   },
   {
+    name: 'LandingPage',
+    path: routes.landingPage,
+    component: LayoutPage,
+  },
+  {
+    name: 'NotFound',
+    path: routes.notFound,
+    component: NotFound,
+  },
+]
+
+export const loggedInRoutes = [
+  {
     name: 'Home',
     path: routes.home,
     component: Home,
@@ -37,11 +52,6 @@ const routeConfig = [
     component: Cart,
     exact: true,
     protected: true,
-  },
-  {
-    name: 'NotFound',
-    path: routes.notFound,
-    component: NotFound,
   },
 ]
 

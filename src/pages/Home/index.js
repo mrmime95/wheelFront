@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import API from '../../utils/API'
 
-import logo from '../../images/HeaderLogo.png'
-import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Table from '../../components/Table'
 import Card from '../../components/Card'
 import Loading from '../../components/Loading'
+import CartContext from '../../context/cartContext'
 //import Slider from 'react-slick'
 
 import { COLORS, TRANSITION } from '../../utils/theme'
@@ -24,13 +23,8 @@ import { ReactComponent as WinterIcon } from '../../components/icons/winter.svg'
 import 'slick-carousel/slick/slick-theme.css' */
 
 const Wrapper = styled.div`
-  max-width: 1500px;
-  padding: 40px;
-  margin: 0 auto;
   color: ${COLORS.white};
 `
-
-const StyledHeader = styled(Header)``
 
 const BackgroundImage = styled.img`
   position: absolute;
@@ -229,53 +223,15 @@ const brands = [
   { id: 8, name: 'Bridgestone', text: 'Bridgestone' },
 ]
 
-const products = [
-  { id: 0, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1, piece: 1 },
-  { id: 1, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1.44, piece: 1 },
-  { id: 2, title: 'Pirelli', subtitle: 'P Zero', type: '205/55/R16', price: 1.56, piece: 1 },
-]
-
-/* const sliderSettings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  initialSlide: 0,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-} */
-
 function Home() {
   const [categoryState, setCategoryState] = useState()
   const [brandState, setBrandState] = useState([])
-  const [productsByBrands, setProductByBrands] = useState([])
+  const [productsByBrands, setProductsByBrands] = useState([])
   const [promo, setPromo] = useState()
   const [loadingProducts, setLoadingProducts] = useState(false)
+
+  const cart = useContext(CartContext).cart
+  const { addToCart, getProductIndexById } = useContext(CartContext).functions
 
   useEffect(() => {
     getFilteredProductList()
@@ -285,7 +241,6 @@ function Home() {
   return (
     <Wrapper>
       <BackgroundImage src={backgroundImg} alt="wheel background"></BackgroundImage>
-      <StyledHeader logo={logo} products={products} />
       <TitleContainter>
         <h1>Best Offers on Winter Tires</h1>
         <h5>Tires for cars, trucks, vans and agricultural vehicles</h5>
@@ -353,24 +308,27 @@ function Home() {
               <React.Fragment key={key}>
                 <BrandTitle>{key}</BrandTitle>
                 <CardContainer>
-                  {productsByBrands[key].map((product) => (
-                    <Card
-                      key={product.id}
-                      title={product.brand}
-                      subtitle={product.category}
-                      summer={!!product.summer}
-                      type={product.type}
-                      number={product.number}
-                      letter={product.letter}
-                      fuel={product.fuel}
-                      rain={product.rain}
-                      sound={product.sound}
-                      oldPrice={product.oldPrice}
-                      newPrice={product.newPrice}
-                      pieceNumber={product.pieceNumber}
-                      onAddToCart={(value) => console.log(value)}
-                    />
-                  ))}
+                  {productsByBrands[key].map((product) => {
+                    const productIndex = getProductIndexById(product.id)
+                    return (
+                      <Card
+                        key={product.id}
+                        title={product.brand}
+                        subtitle={product.category}
+                        summer={!!product.summer}
+                        type={product.type}
+                        number={product.number}
+                        letter={product.letter}
+                        fuel={product.fuel}
+                        rain={product.rain}
+                        sound={product.sound}
+                        oldPrice={product.oldPrice}
+                        newPrice={product.newPrice}
+                        pieceNumber={product.pieceNumber - (productIndex >= 0 ? cart[productIndex].amount : 0)}
+                        onAddToCart={(piece) => addToCart(product, Number(piece))}
+                      />
+                    )
+                  })}
                 </CardContainer>
               </React.Fragment>
             ))
@@ -400,7 +358,7 @@ function Home() {
     try {
       const resp = await API.product.get({ brands, useFor })
       console.log(resp)
-      setProductByBrands(resp)
+      setProductsByBrands(resp)
     } catch (e) {
       alert(e.message)
     }

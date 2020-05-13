@@ -8,6 +8,7 @@ function Form({
   initialValues = {},
   validateBeforeSubmit,
   enableReinitialize,
+  validationshema,
   ...props
 }) {
   return (
@@ -18,11 +19,34 @@ function Form({
       validate={validateBeforeSubmit || (() => {})}
       validateOnChange={!validateBeforeSubmit}
       validateOnBlur={!validateBeforeSubmit}
+      validationSchema={validationshema}
     >
-      {({ handleSubmit, submitForm, handleChange, handleBlur, values, errors, dirty, setFieldValue }) => {
+      {({
+        handleSubmit,
+        submitForm,
+        handleChange,
+        handleBlur,
+        touched,
+        values,
+        errors,
+        dirty,
+        setFieldValue,
+        isValid,
+      }) => {
         return (
           <form onSubmit={handleSubmit} noValidate={!!validateBeforeSubmit} {...props}>
-            {children && children({ handleChange, handleBlur, submitForm, values, errors, dirty, setFieldValue })}
+            {children &&
+              children({
+                handleChange,
+                handleBlur,
+                submitForm,
+                values,
+                touched,
+                errors,
+                dirty,
+                setFieldValue,
+                isValid,
+              })}
           </form>
         )
       }}
@@ -36,6 +60,7 @@ Form.propTypes = {
   initialValues: PropTypes.object,
   validateBeforeSubmit: PropTypes.func,
   enableReinitialize: PropTypes.bool,
+  validationshema: PropTypes.object,
 }
 
 export default Form

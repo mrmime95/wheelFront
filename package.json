@@ -20,7 +20,8 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.0",
     "styled-normalize": "^8.0.7",
-    "uuid": "^8.0.0"
+    "uuid": "^8.0.0",
+    "yup": "^0.28.5"
   },
   "scripts": {
     "start": "react-scripts start",

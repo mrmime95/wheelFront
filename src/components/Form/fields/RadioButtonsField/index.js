@@ -11,9 +11,9 @@ const StyledRadioButtons = styled(RadioButtons)`
   }
 `
 
-function RadioButtonsField({ name, label, ...props }) {
+function RadioButtonsField({ name, label, disabled = false, ...props }) {
   return (
-    <FormField label={label}>
+    <FormField label={label} disabled={disabled}>
       <Field name={name}>
         {({ field, form }) => (
           <StyledRadioButtons
@@ -21,6 +21,7 @@ function RadioButtonsField({ name, label, ...props }) {
             onChange={(value) => {
               form.setFieldValue(field.name, value)
             }}
+            disabled={disabled}
             {...props}
           />
         )}
@@ -31,6 +32,7 @@ function RadioButtonsField({ name, label, ...props }) {
 
 RadioButtonsField.propTypes = {
   name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   label: PropTypes.string,
 }
 

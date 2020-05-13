@@ -193,7 +193,7 @@ function ResponsiveTable({ data = [], error = false, errorText, header, onRemove
             <Thead>
               <Tr>
                 {header.map((headerElement, index) => (
-                  <Th key={index}>{headerElement}</Th>
+                  <Th key={`HE-${index}`}>{headerElement}</Th>
                 ))}
               </Tr>
             </Thead>
@@ -202,13 +202,14 @@ function ResponsiveTable({ data = [], error = false, errorText, header, onRemove
             {data.map((row, index) => {
               totalWithVAT += (row.newPrice + row.vat) * row.amount
               totalWithoutVAT += row.newPrice * row.amount
+              console.log(row.id)
               return (
-                <Tr key={row.id}>
+                <Tr key={`resp${row.id}`}>
                   <Td className="product">
                     <span>{index + 1}.</span>
                     <div className="title">
-                      <h6>{row.title}</h6>
-                      <p>{row.subtitle}</p>
+                      <h6>{row.brand}</h6>
+                      <p>{row.category}</p>
                     </div>
                     <div className="features-section">
                       <div className="features">
@@ -239,9 +240,14 @@ function ResponsiveTable({ data = [], error = false, errorText, header, onRemove
                     </div>
                   </Td>
                   <Td className="amount">
-                    <Form initialValues={{ amount: row.amount }} onSubmit={onAmountChanged}>
+                    <Form
+                      initialValues={{ amount: row.amount }}
+                      onSubmit={(value) => onAmountChanged(row.id, value.amount)}
+                    >
                       {({ handleChange, submitForm }) => (
                         <TextField
+                          min={1}
+                          max={row.pieceNumber}
                           onChange={(e) => {
                             handleChange(e)
                             setTimeout(() => {

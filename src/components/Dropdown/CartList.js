@@ -77,6 +77,7 @@ const StyledButton = styled(Button)`
 
 function CartList({ products, ...props }) {
   let total = 0
+  console.log(products)
   return (
     <Wrapper {...props}>
       <Table>
@@ -120,7 +121,7 @@ function CartList({ products, ...props }) {
 CartList.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       title: PropTypes.string.isRequired,
       subtitle: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,

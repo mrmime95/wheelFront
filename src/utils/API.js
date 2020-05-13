@@ -35,8 +35,13 @@ const product = {
   getAPromotion: () => axios.get('/product/promo'),
 }
 
+const checkout = {
+  post: (params) => axios.post('/checkout', params),
+}
+
 export default {
   user,
   auth,
   product,
+  checkout,
 }

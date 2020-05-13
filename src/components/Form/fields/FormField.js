@@ -7,11 +7,12 @@ const Wrapper = styled.div`
   position: relative;
   font-size: 1.1rem;
   font-weight: 500;
+  color: ${({ disabled }) => (disabled ? COLORS.disabledGray : COLORS.black)};
 `
 
 const Label = styled.span`
   display: block;
-  color: ${COLORS.black};
+  color: inherit;
   margin-bottom: 10px;
 `
 

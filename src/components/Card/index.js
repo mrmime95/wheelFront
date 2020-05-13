@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button from '../Button'
-import Form from '../Form'
-import SelectField from '../Form/fields/SelectField'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
 import { range, twoDecimals } from '../../utils/number'
 
@@ -174,12 +172,33 @@ const StyledButton = styled(Button)`
     margin: 0 15px;
   }
 `
-const StyledSelectField = styled(SelectField)`
+const StyledSelect = styled.select`
   margin-bottom: 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 3px 0px rgba(43, 48, 61, 0.3) inset;
+  font-size: 1.4rem;
+  border: 1px solid ${COLORS.disabledGray};
+  width: 100%;
+  color: ${COLORS.black};
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  padding: 5px 10px;
+  position: relative;
+  :after {
+    content: '';
+    border: solid #000000;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    position: absolute;
+    right: 20px;
+    top: 40%;
+    transform: rotate(45deg) translateX(-50%);
+  }
 `
 
 function Card({
-  id = '1',
   title,
   subtitle,
   summer = false,
@@ -195,6 +214,8 @@ function Card({
   onAddToCart,
   ...props
 }) {
+  const [piece, setPiece] = useState(0)
+  const [pieceNumberState, setPieceNumberState] = useState(pieceNumber)
   return (
     <Wrapper {...props}>
       <BackgroundImage src={backgroundImg} alt="wheel background"></BackgroundImage>
@@ -245,19 +266,28 @@ function Card({
       </div>
       <BuySection>
         {pieceNumber ? <Available>Available</Available> : <Unavailable>Unavailable</Unavailable>}
-        <Form onSubmit={onAddToCart} initialValues={{ piece: 0 }}>
-          {() => (
-            <StyledButton type="submit">
-              <StyledSelectField
-                id={`piece${id}`}
-                name="piece"
-                options={range(0, pieceNumber).map((number) => ({ value: number, label: number }))}
-              />
-              <CartIcon />
-              <span>Ad to cart</span>
-            </StyledButton>
-          )}
-        </Form>
+        <StyledButton
+          onClick={() => {
+            onAddToCart(piece)
+            setPieceNumberState((state) => state - piece)
+            setPiece(0)
+          }}
+        >
+          <StyledSelect
+            name="piece"
+            onClick={(e) => e.stopPropagation()}
+            value={piece}
+            onChange={(e) => setPiece(e.target.value)}
+          >
+            {range(0, pieceNumberState).map((number) => (
+              <option key={number} value={number}>
+                {number}
+              </option>
+            ))}
+          </StyledSelect>
+          <CartIcon />
+          <span>Ad to cart</span>
+        </StyledButton>
       </BuySection>
     </Wrapper>
   )

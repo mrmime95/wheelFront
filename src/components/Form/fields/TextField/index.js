@@ -12,12 +12,23 @@ const StyledFormikField = styled(FormikField)`
   border: 1px solid ${COLORS.disabledGray};
   padding: 5px;
   width: 100%;
-  color: ${COLORS.black};
+  color: inherit;
 `
 
-function TextField({ placeholder, type = 'text', label, required, name, disabled = false, autoFocus, ...props }) {
+function TextField({
+  placeholder,
+  type = 'text',
+  label,
+  required,
+  min,
+  max,
+  name,
+  disabled = false,
+  autoFocus,
+  ...props
+}) {
   return (
-    <FormField label={label} {...props}>
+    <FormField label={label} disabled={disabled} {...props}>
       <StyledFormikField
         placeholder={placeholder}
         type={type}
@@ -25,6 +36,8 @@ function TextField({ placeholder, type = 'text', label, required, name, disabled
         required={required}
         disabled={disabled}
         autoFocus={autoFocus}
+        min={min}
+        max={max}
       />
     </FormField>
   )
@@ -38,7 +51,32 @@ TextField.propTypes = {
   disabled: PropTypes.bool,
   label: PropTypes.string,
   onChange: PropTypes.func,
-  debounceDelay: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  autoFocus: PropTypes.bool,
+}
+
+export function SearchField({ placeholder, type = 'text', required, name, disabled = false, autoFocus, ...props }) {
+  return (
+    <StyledFormikField
+      placeholder={placeholder}
+      type={type}
+      name={name}
+      required={required}
+      disabled={disabled}
+      autoFocus={autoFocus}
+      {...props}
+    />
+  )
+}
+
+SearchField.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
   autoFocus: PropTypes.bool,
 }
 

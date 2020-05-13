@@ -37,7 +37,7 @@ const Step = styled.div`
 const StyledForm = styled(Form)`
   padding: 18px 25px;
   margin: 0 0 15px;
-  background-color: #f5f6f8;
+  background-color: ${({ active }) => (active ? '#f5f6f8' : COLORS.white)};
   border-radius: 2px;
 
   & > div {
@@ -52,15 +52,21 @@ const StyledButton = styled(Button)`
   font-size: 1.15rem;
 `
 
-function CheckoutForm({ index, isActive, title, initialValues, onSubmit, children, ...props }) {
+function CheckoutForm({ index, isActive, title, initialValues, onSubmit, validationshema, children, ...props }) {
   return (
     <Wrapper {...props} isActive={isActive}>
       <Step active={isActive}>{index}</Step>
       <h6>{title}</h6>
-      <StyledForm initialValues={initialValues} onSubmit={onSubmit}>
-        {() => children}
+      <StyledForm initialValues={initialValues} validationshema={validationshema} onSubmit={onSubmit}>
+        {({ errors, values }) => (
+          <>
+            {children}
+            {Object.keys(errors).every((k) => !errors[k]) &&
+              Object.keys(initialValues).every((k) => values[k] !== '') &&
+              isActive && <StyledButton type="submit">Continue</StyledButton>}
+          </>
+        )}
       </StyledForm>
-      {isActive && <StyledButton>Continue</StyledButton>}
     </Wrapper>
   )
 }
@@ -72,6 +78,7 @@ CheckoutForm.propTypes = {
   initialValues: PropTypes.any.isRequired,
   onSubmit: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  validationshema: PropTypes.any,
 }
 
 export default CheckoutForm
