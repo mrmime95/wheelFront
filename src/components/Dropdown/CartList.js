@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Row = styled.tr`
+export const Row = styled.tr`
   padding: 10px 10px 15px;
   font-size: 1.4rem;
   td:nth-child(2) {
@@ -55,7 +55,7 @@ const Row = styled.tr`
   }
 `
 
-const Table = styled.table`
+export const Table = styled.table`
   width: 100%;
   &,
   th,
@@ -75,7 +75,7 @@ const StyledButton = styled(Button)`
   text-transform: uppercase;
 `
 
-function CartList({ products, ...props }) {
+function CartList({ products, closeList, ...props }) {
   let total = 0
   console.log(products)
   return (
@@ -113,7 +113,9 @@ function CartList({ products, ...props }) {
           </Row>
         </tbody>
       </Table>
-      <StyledButton to="/cart">Check out</StyledButton>
+      <StyledButton to="/cart" onClick={closeList}>
+        Check out
+      </StyledButton>
     </Wrapper>
   )
 }
@@ -129,6 +131,7 @@ CartList.propTypes = {
       price: PropTypes.number.isRequired,
     })
   ).isRequired,
+  closeList: PropTypes.func,
 }
 
 export default CartList

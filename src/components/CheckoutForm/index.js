@@ -57,7 +57,7 @@ function CheckoutForm({ index, isActive, title, initialValues, onSubmit, validat
     <Wrapper {...props} isActive={isActive}>
       <Step active={isActive}>{index}</Step>
       <h6>{title}</h6>
-      <StyledForm initialValues={initialValues} validationshema={validationshema} onSubmit={onSubmit}>
+      <StyledForm active={isActive} initialValues={initialValues} validationshema={validationshema} onSubmit={onSubmit}>
         {({ errors, values }) => (
           <>
             {children}

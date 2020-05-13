@@ -1,14 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import API from '../../utils/API'
 
 import Button from '../Button'
 import Form from '../Form'
 import { SearchField } from '../Form/fields/TextField'
 import Dropdown from '../Dropdown'
+import { Table, Row } from '../Dropdown/CartList'
 import CartList from '../Dropdown/CartList'
+import Loading from '../Loading'
 import { COLORS, FONT_FAMILY } from '../../utils/theme'
 import CartContext from '../../context/cartContext'
+import useClickOutside from '../../hooks/useClickOutside'
 
 //TODO: clear border;
 const StyledHeader = styled.header`
@@ -36,6 +40,7 @@ const StyledForm = styled(Form)`
   display: flex;
   width: 550px;
   margin: 2px 0 2px 50px;
+  position: relative;
 `
 
 const StyledTextField = styled(SearchField)`
@@ -72,8 +77,36 @@ const StyledCartList = styled(CartList)`
   top: 100%;
 `
 
+const DropdownList = styled.div`
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 100%;
+  transform: translateY(15px);
+  color: ${COLORS.black};
+  z-index: 1;
+  background-color: ${COLORS.white};
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.13);
+  border-radius: 3px;
+  max-height: 200px;
+  overflow: auto;
+`
+
 function Header({ logo, ...props }) {
   const { cart } = useContext(CartContext)
+  const [serachList, setSearchList] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const [menuIsVisible, setMenuIsVisible] = useState(false)
+  const ref = useRef()
+  useClickOutside(ref, toggle)
+
+  function toggle() {
+    if (menuIsVisible) {
+      setSearchList([])
+    }
+    setMenuIsVisible(!menuIsVisible)
+  }
 
   return (
     <StyledHeader {...props}>
@@ -85,7 +118,44 @@ function Header({ logo, ...props }) {
           {() => (
             <>
               <StyledTextField name="search" placeholder="Search products" />
-              <SearchButton type="submit">Search</SearchButton>
+              <SearchButton
+                type="submit"
+                onClick={(e) => {
+                  if (menuIsVisible) {
+                    e.preventDefault()
+                  }
+                  toggle()
+                }}
+              >
+                Search
+              </SearchButton>
+              {menuIsVisible && (
+                <DropdownList ref={ref} onClick={(e) => e.stopPropagation()}>
+                  {loading ? (
+                    <Loading />
+                  ) : serachList.length ? (
+                    <Table>
+                      <tbody>
+                        {serachList.map((result) => (
+                          <Row key={result.id}>
+                            <td>
+                              <div>
+                                {`${result.brand} - `}
+                                <span>{result.category}</span>
+                              </div>
+                              <div>
+                                <span>{result.type}</span>
+                              </div>
+                            </td>
+                          </Row>
+                        ))}
+                      </tbody>
+                    </Table>
+                  ) : (
+                    <div>Nothing</div>
+                  )}
+                </DropdownList>
+              )}
             </>
           )}
         </StyledForm>
@@ -109,8 +179,16 @@ function Header({ logo, ...props }) {
     </StyledHeader>
   )
 
-  function handleSearch(value) {
-    console.log(value)
+  async function handleSearch({ search } = { search: '' }) {
+    console.log(search)
+    setLoading(true)
+    try {
+      const resp = await API.product.get({ search })
+      setSearchList([].concat.apply([], Object.values(resp)))
+    } catch (e) {
+      alert(e.message)
+    }
+    setLoading(false)
   }
 }
 
