@@ -202,7 +202,6 @@ function ResponsiveTable({ data = [], error = false, errorText, header, onRemove
             {data.map((row, index) => {
               totalWithVAT += (row.newPrice + row.vat) * row.amount
               totalWithoutVAT += row.newPrice * row.amount
-              console.log(row.id)
               return (
                 <Tr key={`resp${row.id}`}>
                   <Td className="product">

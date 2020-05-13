@@ -77,7 +77,6 @@ const StyledButton = styled(Button)`
 
 function CartList({ products, closeList, ...props }) {
   let total = 0
-  console.log(products)
   return (
     <Wrapper {...props}>
       <Table>

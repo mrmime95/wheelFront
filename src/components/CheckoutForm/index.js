@@ -34,10 +34,17 @@ const Step = styled.div`
   margin: 0 auto;
 `
 
-const StyledForm = styled(Form)`
+const StyledButton = styled(Button)`
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 1.15rem;
+`
+
+const FormWrapper = styled.div`
+  background-color: ${({ isActive }) => (isActive ? '#f5f6f8' : COLORS.white)};
   padding: 18px 25px;
   margin: 0 0 15px;
-  background-color: ${({ active }) => (active ? '#f5f6f8' : COLORS.white)};
+
   border-radius: 2px;
 
   & > div {
@@ -46,27 +53,22 @@ const StyledForm = styled(Form)`
   }
 `
 
-const StyledButton = styled(Button)`
-  padding: 10px 20px;
-  font-weight: 400;
-  font-size: 1.15rem;
-`
-
 function CheckoutForm({ index, isActive, title, initialValues, onSubmit, validationshema, children, ...props }) {
   return (
     <Wrapper {...props} isActive={isActive}>
       <Step active={isActive}>{index}</Step>
       <h6>{title}</h6>
-      <StyledForm active={isActive} initialValues={initialValues} validationshema={validationshema} onSubmit={onSubmit}>
+
+      <Form initialValues={initialValues} validationshema={validationshema} onSubmit={onSubmit}>
         {({ errors, values }) => (
           <>
-            {children}
+            <FormWrapper isActive={isActive}>{children}</FormWrapper>
             {Object.keys(errors).every((k) => !errors[k]) &&
               Object.keys(initialValues).every((k) => values[k] !== '') &&
               isActive && <StyledButton type="submit">Continue</StyledButton>}
           </>
         )}
-      </StyledForm>
+      </Form>
     </Wrapper>
   )
 }

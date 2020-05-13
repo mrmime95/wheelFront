@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
 import ResponsiveTable from '../../components/ResponsiveTable'
 import CheckoutForm from '../../components/CheckoutForm'
@@ -11,6 +12,7 @@ import CartContext from '../../context/cartContext'
 import { COLORS } from '../../utils/theme'
 import backgroundImg from '../../images/BackgroundCos.jpg'
 import * as Yup from 'yup'
+import { Redirect } from 'react-router-dom'
 
 const header = [
   'Product',
@@ -67,6 +69,7 @@ const StepperContainer = styled.div`
 const StepperForms = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `
 
 const StyledRadioButtonsField = styled(RadioButtonsField)`
@@ -95,6 +98,7 @@ function Cart() {
   const [activeStep, setActiveStep] = useState(0)
   const [personData, setPersonData] = useState({})
   const cart = useContext(CartContext).cart
+  const history = useHistory()
 
   const { removeFromCart, changeAmount, sendCheckout } = useContext(CartContext).functions
   const steps = [
@@ -147,7 +151,8 @@ function Cart() {
           setPersonData({})
           const checkoutSent = sendCheckout({ ...personData, ...values })
           if (checkoutSent) {
-            console.log('TY')
+            console.log('Sent')
+            history.push('/thank-you')
           }
         }
       },

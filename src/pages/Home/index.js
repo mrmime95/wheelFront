@@ -357,7 +357,6 @@ function Home() {
     setLoadingProducts(true)
     try {
       const resp = await API.product.get({ brands, useFor })
-      console.log(resp)
       setProductsByBrands(resp)
     } catch (e) {
       alert(e.message)
@@ -368,7 +367,6 @@ function Home() {
   async function getPromoProduct() {
     try {
       const resp = await API.product.getAPromotion()
-      console.log(resp)
       setPromo(resp)
     } catch (e) {
       alert(e.message)

@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import API from '../utils/API'
+import AuthContext from '../context/authContext'
 
 const CartContext = React.createContext()
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([])
+  const { email } = useContext(AuthContext).state
   const functions = { addToCart, removeFromCart, changeAmount, getProductIndexById, sendCheckout }
-  //TODO: save cart to localstorage by email;
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem(`cart${email}`))
+    if (storedCart) {
+      setCart(storedCart)
+    }
+  }, [email])
+
   return <CartContext.Provider value={{ cart, functions }}>{children}</CartContext.Provider>
 
   function addToCart(product, amount) {
@@ -18,6 +27,7 @@ export function CartProvider({ children }) {
       current ? (current.amount += amount) : tempCart.push({ ...product, amount })
 
       setCart(tempCart)
+      localStorage.setItem(`cart${email}`, JSON.stringify(tempCart))
     }
   }
 
@@ -33,6 +43,7 @@ export function CartProvider({ children }) {
       current.amount = amount
     }
     setCart(tempCart)
+    localStorage.setItem(`cart${email}`, JSON.stringify(tempCart))
   }
 
   function getProductIndexById(id) {
@@ -54,6 +65,7 @@ export function CartProvider({ children }) {
 
   function clearData() {
     setCart([])
+    localStorage.removeItem(`cart${email}`)
   }
 }
 

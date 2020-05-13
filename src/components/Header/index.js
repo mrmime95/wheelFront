@@ -180,7 +180,6 @@ function Header({ logo, ...props }) {
   )
 
   async function handleSearch({ search } = { search: '' }) {
-    console.log(search)
     setLoading(true)
     try {
       const resp = await API.product.get({ search })

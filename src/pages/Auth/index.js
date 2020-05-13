@@ -8,54 +8,67 @@ import TextField from '../../components/Form/fields/TextField'
 import Form from '../../components/Form'
 
 import AuthContext from '../../context/authContext'
+import CClogo from '../../images/CCLogoBig.png'
 
 const Wrapper = styled.div`
-  background-color: ${COLORS.lightSilver};
+  background-color: #f5f6f8;
   display: flex;
   width: 100%;
+  height: 100vh;
   justify-content: center;
 `
 
 const Content = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding: 25px;
+  padding: 50px;
   margin: 0 auto;
 `
 
 const LogoContainer = styled.div`
-  padding: 0 0 80px 0;
+  text-align: center;
+  padding: 0 0 150px 0;
 `
 
 const Logo = styled.img`
-  height: 72px;
+  width: 180px;
 `
 
 const FormContainer = styled.div`
-  background-color: white;
-  padding: 25px;
+  background-color: ${COLORS.white};
+  padding: 50px 60px 40px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 4px 0px rgba(43, 48, 61, 0.3) inset;
 `
 
 const Title = styled.h1`
-  color: ${COLORS.silver};
+  font-size: 3.5rem;
   text-align: center;
-  margin-top: 0;
+  font-weight: 400;
+  margin: 0 0 40px;
+  color: #a6a6a6;
 `
 
-const Subtitle = styled.h3`
+const Subtitle = styled.p`
+  font-size: 1.7rem;
   text-align: center;
+  font-weight: 400;
+  margin: 0 0 20px;
 `
 const StyledTextField = styled(TextField)`
+  width: 340px;
   margin: 0 0 15px 0;
+
+  label > input {
+    height: 50px;
+    padding: 10px 20px;
+  }
 `
 
 const SubmitButton = styled(Button)`
   width: 100%;
   margin: 0 0 15px 0;
 `
-const Info = styled.p`
+const Info = styled(Subtitle)`
   margin: 0;
-  text-align: center;
 `
 const LinkContainer = styled.div`
   width: 100%;
@@ -81,11 +94,11 @@ function Auth() {
     <Wrapper>
       <Content>
         <LogoContainer>
-          <Logo src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" />
+          <Logo src={CClogo} />
         </LogoContainer>
         <FormContainer>
           <Title>Welcome!</Title>
-          <Subtitle>Please add your emai!</Subtitle>
+          <Subtitle>Please fill in your email address</Subtitle>
           <Form initialValues={{ email: '', password: '', name: '' }} onSubmit={onSubmit[authFlowIndex]}>
             {() => (
               <>
@@ -96,8 +109,8 @@ function Auth() {
               </>
             )}
           </Form>
-          <Info>Some text here!</Info>
-          <Info>Some longer text here!</Info>
+          <Info>Don't have an account yet?</Info>
+          <Info>You can create one in the next step.</Info>
         </FormContainer>
         <LinkContainer>
           <Button variant="text">Some Link</Button>
