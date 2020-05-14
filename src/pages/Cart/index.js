@@ -9,7 +9,7 @@ import TextField from '../../components/Form/fields/TextField'
 import RadioButtonsField from '../../components/Form/fields/RadioButtonsField'
 
 import CartContext from '../../context/cartContext'
-import { COLORS, mobileAndUp, tabletAndUp, laptopAndUp, desktopAndUp } from '../../utils/theme'
+import { COLORS, desktopAndUp } from '../../utils/theme'
 import backgroundImg from '../../images/BackgroundCos.jpg'
 import * as Yup from 'yup'
 

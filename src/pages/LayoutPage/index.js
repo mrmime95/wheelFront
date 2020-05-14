@@ -5,6 +5,7 @@ import { tabletAndUp } from '../../utils/theme'
 
 import logo from '../../images/HeaderLogo.png'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 import RouteRenderer from '../../routes/RouteRenderer'
 import { loggedInRoutes } from '../../routes/routeConfig'
@@ -38,6 +39,7 @@ function LayoutPage() {
           <RouteRenderer routeConfig={loggedInRoutes} />
         </Wrapper>
       </CartProvider>
+      <Footer></Footer>
     </Page>
   )
 }
