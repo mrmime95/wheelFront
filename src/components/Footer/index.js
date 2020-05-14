@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { tabletAndUp } from '../../utils/theme'
 
@@ -30,7 +29,7 @@ const CopyRight = styled.p`
   margin: 0;
 `
 
-function CheckoutForm({ ...props }) {
+function Footer({ ...props }) {
   return (
     <Wrapper {...props}>
       <div>
@@ -42,14 +41,6 @@ function CheckoutForm({ ...props }) {
   )
 }
 
-CheckoutForm.propTypes = {
-  index: PropTypes.number.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  initialValues: PropTypes.any.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  validationshema: PropTypes.any,
-}
+Footer.propTypes = {}
 
-export default CheckoutForm
+export default Footer

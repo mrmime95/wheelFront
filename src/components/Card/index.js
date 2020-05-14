@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   color: ${COLORS.dark};
-  margin: 0 0 20px;
+  margin: 0 5px 20px 0;
 `
 
 const BackgroundImage = styled.img`

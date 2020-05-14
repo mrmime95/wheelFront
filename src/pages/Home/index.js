@@ -335,13 +335,6 @@ const BrandButton = styled(Button)`
 
 const CardsList = styled.div`
   flex: 5;
-
-  ${mobileAndUp()} {
-  }
-
-  ${tabletAndUp()} {
-  }
-
   ${laptopAndUp()} {
     padding: 20px 0 20px 30px;
   }
@@ -354,12 +347,15 @@ const BrandTitle = styled.h4`
   padding: 0 0 10px;
   border-bottom: 1px solid ${COLORS.blue};
 `
-//TODO: Use slider here
+
 const CardContainer = styled.div`
   padding: 45px 0 45px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  ${mobileAndUp()} {
+    justify-content: flex-start;
+  }
 `
 
 const categories = [

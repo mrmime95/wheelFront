@@ -39,7 +39,7 @@ function LayoutPage() {
           <RouteRenderer routeConfig={loggedInRoutes} />
         </Wrapper>
       </CartProvider>
-      <Footer></Footer>
+      <Footer />
     </Page>
   )
 }
