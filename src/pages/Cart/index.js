@@ -9,7 +9,7 @@ import TextField from '../../components/Form/fields/TextField'
 import RadioButtonsField from '../../components/Form/fields/RadioButtonsField'
 
 import CartContext from '../../context/cartContext'
-import { COLORS } from '../../utils/theme'
+import { COLORS, mobileAndUp, tabletAndUp, laptopAndUp, desktopAndUp } from '../../utils/theme'
 import backgroundImg from '../../images/BackgroundCos.jpg'
 import * as Yup from 'yup'
 
@@ -37,7 +37,10 @@ const Wrapper = styled.div`
 `
 
 const SectionWrapper = styled.div`
-  padding: 0 150px;
+  padding: 0 0;
+  ${desktopAndUp()} {
+    padding: 0 150px;
+  }
 `
 
 const TableSection = styled.section`
@@ -67,7 +70,7 @@ const StepperContainer = styled.div`
 
 const StepperForms = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 `
 
@@ -89,9 +92,7 @@ const WhiteBackground = styled.div`
   height: 930px;
 `
 
-const StyledCheckoutForm = styled(CheckoutForm)`
-  margin: 0 35px;
-`
+const StyledCheckoutForm = styled(CheckoutForm)``
 
 function Cart() {
   const [activeStep, setActiveStep] = useState(0)

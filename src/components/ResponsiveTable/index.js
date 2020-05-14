@@ -6,7 +6,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import Button from '../Button'
 import TextField from '../Form/fields/TextField'
 import Form from '../Form'
-import { COLORS } from '../../utils/theme'
+import { COLORS, laptopAndUp } from '../../utils/theme'
 import { Able, AbleContainer } from '../Card'
 
 import { ReactComponent as SummerIcon } from '../../components/icons/summer.svg'
@@ -16,6 +16,7 @@ import { ReactComponent as RainIcon } from '../../components/icons/rain.svg'
 import { ReactComponent as SoundIcon } from '../../components/icons/voice.svg'
 import backgroundImg from '../../images/wheelHorizontal.png'
 
+//Here I used a third party library, which is not as responsive as I imagined :(
 const Wrapper = styled.div`
   table,
   th {
@@ -64,7 +65,10 @@ const Wrapper = styled.div`
       overflow: hidden;
       .title {
         text-align: left;
-        padding: 0 50px 0 15px;
+        padding: 0px 10px 0 15px;
+        ${laptopAndUp()} {
+          padding: 0 50px 0 15px;
+        }
         & h6 {
           font-size: 2.7rem;
           font-weight: 700;
@@ -78,7 +82,7 @@ const Wrapper = styled.div`
         }
       }
       .features-section {
-        padding: 0 90px 0 0;
+        padding: 0;
         position: relative;
         .features {
           text-align: left;
@@ -90,6 +94,9 @@ const Wrapper = styled.div`
               margin: 0 5px 0 0;
             }
           }
+        }
+        ${laptopAndUp()} {
+          padding: 0 90px 0 0;
         }
         ${AbleContainer} {
           padding: 5px 0 0;
@@ -114,6 +121,10 @@ const Wrapper = styled.div`
           bottom: 0;
           height: 100%;
           width: auto;
+          display: none;
+          ${laptopAndUp()} {
+            display: block;
+          }
         }
       }
     }

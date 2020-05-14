@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import API from '../../utils/API'
+import { COLORS, TRANSITION, mobileAndUp, tabletAndUp, laptopAndUp, desktopAndUp } from '../../utils/theme'
 
 import Button from '../../components/Button'
 import Table from '../../components/Table'
 import Card from '../../components/Card'
 import Loading from '../../components/Loading'
 import CartContext from '../../context/cartContext'
-//import Slider from 'react-slick'
 
-import { COLORS, TRANSITION } from '../../utils/theme'
 import backgroundImg from '../../images/Background.jpg'
 import { ReactComponent as Vehicles } from '../../components/icons/vehicles.svg'
 import { ReactComponent as Trucks } from '../../components/icons/trucks.svg'
@@ -19,8 +18,6 @@ import { ReactComponent as SkidChains } from '../../components/icons/skid_chains
 import { ReactComponent as Rims } from '../../components/icons/rims.svg'
 import { ReactComponent as SummerIcon } from '../../components/icons/summer.svg'
 import { ReactComponent as WinterIcon } from '../../components/icons/winter.svg'
-/* import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css' */
 
 const Wrapper = styled.div`
   color: ${COLORS.white};
@@ -28,22 +25,56 @@ const Wrapper = styled.div`
 
 const BackgroundImage = styled.img`
   position: absolute;
-  height: 930px;
+  height: 800px;
   left: 0;
   top: 0;
   z-index: -1;
   object-fit: cover;
+
+  ${tabletAndUp()} {
+    height: 930px;
+  }
 `
 
 const TitleContainter = styled.div`
-  padding: 100px 0 150px 0;
+  padding: 20px 0 100px 0;
   & h1 {
-    font-size: 6.8rem;
+    font-size: 3rem;
     font-weight: 700;
   }
   & h5 {
-    font-size: 2.3rem;
+    font-size: 1.4rem;
     font-weight: normal;
+  }
+
+  ${mobileAndUp()} {
+    padding: 30px 0 40px 0;
+    & h1 {
+      font-size: 3.5rem;
+    }
+    & h5 {
+      font-size: 1.6rem;
+    }
+  }
+
+  ${tabletAndUp()} {
+    padding: 50px 0 100px 0;
+    & h1 {
+      font-size: 4.8rem;
+    }
+    & h5 {
+      font-size: 2rem;
+    }
+  }
+
+  ${laptopAndUp()} {
+    padding: 100px 0 150px 0;
+    & h1 {
+      font-size: 6.8rem;
+    }
+    &h5 {
+      font-size: 2.3rem;
+    }
   }
 `
 
@@ -53,36 +84,71 @@ const Description = styled.div`
 `
 
 const Brand = styled.div`
-  padding: 0 110px 0 0;
+  padding: 0 50px 0 0;
   & h3 {
-    font-size: 4.8rem;
+    font-size: 2.5rem;
     font-weight: 700;
   }
   & h5 {
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 400;
+  }
+  ${mobileAndUp()} {
+    padding: 0 110px 0 0;
+    & h3 {
+      font-size: 3.2rem;
+    }
+    & h5 {
+      font-size: 2rem;
+    }
+  }
+  ${laptopAndUp()} {
+    & h3 {
+      font-size: 4.8rem;
+    }
   }
 `
 
 const Type = styled.div`
+  text-align: center;
   & p {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
   }
   & svg {
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     path {
       fill: ${COLORS.white};
+    }
+  }
+
+  ${mobileAndUp()} {
+    & p {
+      font-size: 1.2rem;
+    }
+    & svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  ${laptopAndUp()} {
+    & p {
+      font-size: 1.4rem;
+    }
+    & svg {
+      width: 45px;
+      height: 45px;
     }
   }
 `
 
 const Price = styled.div`
-  padding: 0 0 45px;
+  padding: 0 0 35px;
   & h4 {
-    font-size: 4.8rem;
+    font-size: 2rem;
     font-weight: 700;
     font-style: italic;
     position: relative;
@@ -95,23 +161,49 @@ const Price = styled.div`
       transform: translateY(-50%);
       left: 0;
       right: 0;
-      height: 7px;
+      height: 3px;
       background-color: ${COLORS.white};
     }
   }
   & h3 {
-    font-size: 6rem;
+    font-size: 3rem;
     font-weight: 700;
     color: #418ef6;
     line-height: 1;
   }
+
+  ${mobileAndUp()} {
+    & h4 {
+      font-size: 3rem;
+      &:after {
+        height: 7px;
+      }
+    }
+    & h3 {
+      font-size: 5rem;
+    }
+  }
+  ${tabletAndUp()} {
+    padding: 0 0 45px;
+  }
+  ${laptopAndUp()} {
+    & h4 {
+      font-size: 4.8rem;
+    }
+
+    & h3 {
+      font-size: 6rem;
+    }
+  }
 `
 
 const Promotion = styled.div`
-  padding: 0 0 130px;
+  padding: 0 0 100px;
+  ${tabletAndUp()} {
+    padding: 0 0 130px;
+  }
 `
 
-//Possible this is the Primary Button
 const StyledButton = styled(Button)`
   font-size: 1.4rem;
   font-weight: 700;
@@ -121,17 +213,18 @@ const StyledButton = styled(Button)`
 const Categories = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `
 
 const CategoryButton = styled(Button)`
-  padding: 10px 30px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   font-size: 1.4rem;
 
-  width: 15%;
+  width: 100%;
   height: 100px;
   transition: background-color ${TRANSITION}, color ${TRANSITION}, fill ${TRANSITION};
   ${({ active }) =>
@@ -148,21 +241,67 @@ const CategoryButton = styled(Button)`
   & span {
     padding: 10px 0 0;
   }
+
+  margin: 0 0 30px;
+
+  ${mobileAndUp()} {
+    width: 48%;
+  }
+
+  ${tabletAndUp()} {
+    width: 30%;
+  }
+
+  ${laptopAndUp()} {
+    width: 15%;
+    margin: 0;
+  }
+
+  ${desktopAndUp()} {
+    padding: 10px 30px;
+  }
 `
 const LastSection = styled.section`
   display: flex;
   justify-content: space-between;
-  padding: 65px 0 0;
+  flex-wrap: wrap;
+
+  ${mobileAndUp()} {
+  }
+
+  ${tabletAndUp()} {
+  }
+
+  ${laptopAndUp()} {
+    padding: 65px 0 0;
+  }
 `
 const BrandList = styled(Table)`
-  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 0 20px;
+  ${mobileAndUp()} {
+    margin: 0;
+  }
+
+  ${tabletAndUp()} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30%);
+  }
+
+  ${laptopAndUp()} {
+    display: block;
+    flex: 1;
+  }
 `
 
 const BrandButton = styled(Button)`
   padding: 15px 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   font-size: 1.4rem;
   font-weight: 700;
   width: 100%;
@@ -181,11 +320,31 @@ const BrandButton = styled(Button)`
     `
     background-color:${COLORS.blue};
       color: ${COLORS.white};`}
+
+  ${mobileAndUp()} {
+    flex: 0 0 48%;
+    margin: 0 0 30px;
+  }
+
+  ${laptopAndUp()} {
+    margin: 0;
+    justify-content: flex-start;
+    width: 100%;
+  }
 `
 
 const CardsList = styled.div`
   flex: 5;
-  padding: 20px 0 20px 30px;
+
+  ${mobileAndUp()} {
+  }
+
+  ${tabletAndUp()} {
+  }
+
+  ${laptopAndUp()} {
+    padding: 20px 0 20px 30px;
+  }
 `
 
 const BrandTitle = styled.h4`
@@ -195,7 +354,7 @@ const BrandTitle = styled.h4`
   padding: 0 0 10px;
   border-bottom: 1px solid ${COLORS.blue};
 `
-
+//TODO: Use slider here
 const CardContainer = styled.div`
   padding: 45px 0 45px;
   display: flex;

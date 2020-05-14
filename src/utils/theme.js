@@ -45,3 +45,49 @@ export const GlobalStyles = createGlobalStyle`
   }
   /* Keep adding global styles here. */
 `
+
+const BREAKPOINTS = {
+  mobile: 480,
+  tablet: 720,
+  laptop: 960,
+  desktop: 1200,
+}
+
+/**
+ * Creates a media query.
+ * @param {number} size Size of the breakpoint
+ * @param {string} minMax min or max, reflecting 'min-width' or 'max-width'.
+ */
+export function createMediaQuery(size, minMax = 'min') {
+  return `@media only screen and (${minMax}-width:${size}px)`
+}
+
+/**
+ * Media query for mobile breakpoint and up.
+ */
+export function mobileAndUp() {
+  return createMediaQuery(BREAKPOINTS.mobile)
+}
+
+/**
+ * Media query for tablet breakpoint and up.
+ */
+export function tabletAndUp() {
+  return createMediaQuery(BREAKPOINTS.tablet)
+}
+
+/**
+ * Media query for laptop breakpoint and up.
+ */
+export function laptopAndUp() {
+  return createMediaQuery(BREAKPOINTS.laptop)
+}
+
+// Keep adding style specific util functions here.
+
+/**
+ * Media query for desktop breakpoint and up.
+ */
+export function desktopAndUp() {
+  return createMediaQuery(BREAKPOINTS.desktop)
+}

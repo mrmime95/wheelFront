@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import API from '../../utils/API'
+import { COLORS, FONT_FAMILY, mobileAndUp, tabletAndUp, laptopAndUp, desktopAndUp } from '../../utils/theme'
 
 import Button from '../Button'
 import Form from '../Form'
@@ -10,25 +11,38 @@ import Dropdown from '../Dropdown'
 import { Table, Row } from '../Dropdown/CartList'
 import CartList from '../Dropdown/CartList'
 import Loading from '../Loading'
-import { COLORS, FONT_FAMILY } from '../../utils/theme'
 import CartContext from '../../context/cartContext'
 import useClickOutside from '../../hooks/useClickOutside'
 
-//TODO: clear border;
 const StyledHeader = styled.header`
   background: ${COLORS.white};
   width: 100%;
-  height: 52px;
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
   padding: 5px 20px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  ${laptopAndUp()} {
+    flex-wrap: nowrap;
+    height: 52px;
+  }
 `
 
 const HeaderPart = styled.div`
   display: flex;
-  height: 100%;
+  width: 100%;
+
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  ${mobileAndUp()} {
+    justify-content: space-between;
+  }
+  ${laptopAndUp()} {
+    width: auto;
+    height: 100%;
+  }
 `
 
 const Logo = styled.img`
@@ -37,38 +51,63 @@ const Logo = styled.img`
 
 const StyledForm = styled(Form)`
   display: flex;
-  width: 550px;
-  margin: 2px 0 2px 50px;
   position: relative;
+  width: 100%;
+  margin: 10px 0;
+  ${mobileAndUp()} {
+    width: auto;
+    margin: 2px 0 2px 50px;
+  }
+  ${desktopAndUp()} {
+    width: 550px;
+  }
 `
 
 const StyledTextField = styled(SearchField)`
   border-radius: 3px 0 0 3px;
   box-shadow: 0px 0px 4px 0px rgba(43, 48, 61, 0.3) inset;
   height: 100%;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-family: ${FONT_FAMILY.roboto};
   border: 0;
-  padding: 10px 30px;
+  padding: 10px 20px;
   font-style: italic;
   color: #8a9098;
+  ${tabletAndUp()} {
+    padding: 10px 30px;
+  }
 `
+
 const SearchButton = styled(Button)`
   border-radius: 0 3px 3px 0;
   height: 100%;
   border: 0;
-  padding: 10px 35px 10px 35px;
+  padding: 10px 10px;
   text-transform: uppercase;
   font-size: 1.2rem;
   font-family: ${FONT_FAMILY.roboto};
   font-weight: bold;
   cursor: pointer;
+  ${mobileAndUp()} {
+    padding: 10px 20px;
+  }
+  ${tabletAndUp()} {
+    padding: 10px 35px 10px 35px;
+  }
 `
 
 const StyledDropdown = styled(Dropdown)`
-  margin: 0 0 0 40px;
   align-items: center;
   display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  ${mobileAndUp()} {
+    width: auto;
+    justify-content: initial;
+  }
+  ${laptopAndUp()} {
+    margin: 0 0 0 40px;
+  }
 `
 
 const StyledCartList = styled(CartList)`

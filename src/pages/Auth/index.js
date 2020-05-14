@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Redirect } from 'react-router-dom'
 
-import { COLORS } from '../../utils/theme'
+import { COLORS, tabletAndUp } from '../../utils/theme'
 import Button from '../../components/Button'
 import TextField from '../../components/Form/fields/TextField'
 import Form from '../../components/Form'
@@ -14,13 +14,17 @@ const Wrapper = styled.div`
   background-color: #f5f6f8;
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   justify-content: center;
 `
 
 const Content = styled.div`
-  padding: 50px;
   margin: 0 auto;
+  padding: 25px;
+  ${tabletAndUp()} {
+    padding: 50px;
+  }
 `
 
 const LogoContainer = styled.div`
@@ -34,9 +38,12 @@ const Logo = styled.img`
 
 const FormContainer = styled.div`
   background-color: ${COLORS.white};
-  padding: 50px 60px 40px;
+  padding: 25px 30px 20px;
   border-radius: 2px;
   box-shadow: 0px 0px 4px 0px rgba(43, 48, 61, 0.3) inset;
+  ${tabletAndUp()} {
+    padding: 50px 60px 40px;
+  }
 `
 
 const Title = styled.h1`
@@ -54,12 +61,13 @@ const Subtitle = styled.p`
   margin: 0 0 20px;
 `
 const StyledTextField = styled(TextField)`
-  width: 340px;
   margin: 0 0 15px 0;
-
   label > input {
     height: 50px;
     padding: 10px 20px;
+  }
+  ${tabletAndUp()} {
+    width: 340px;
   }
 `
 

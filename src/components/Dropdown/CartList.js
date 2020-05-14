@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { twoDecimals } from '../../utils/number'
 import Button from '../Button'
+import { mobileAndUp } from '../../utils/theme'
 
 const Wrapper = styled.div`
   z-index: 2;
   padding: 10px;
-  width: 300px;
+  width: 100%;
   text-align: center;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.13);
   border-radius: 3px;
@@ -26,6 +27,9 @@ const Wrapper = styled.div`
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid white;
+  }
+  ${mobileAndUp()} {
+    width: 300px;
   }
 `
 
