@@ -73,6 +73,9 @@ const StyledTextField = styled(SearchField)`
   padding: 10px 20px;
   font-style: italic;
   color: #8a9098;
+  ${mobileAndUp()} {
+    font-size: 1.6rem;
+  }
   ${tabletAndUp()} {
     padding: 10px 30px;
   }
